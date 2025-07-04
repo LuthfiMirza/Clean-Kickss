@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Tentang Kami - Sevato')
+@section('title', 'Tentang Kami - Sevatoo')
 
 @section('content')
 <!--========== ABOUT PAGE ==========-->
@@ -9,11 +9,11 @@
         <div class="about__data">
             <span class="section-subtitle about__initial">Tentang kami</span>
             <h2 class="section-title about__initial">
-                Sevato - Jasa Cuci Sepatu <br />
+                Sevatoo - Jasa Cuci Sepatu <br />
                 Terpercaya di Purwokerto
             </h2>
             <p class="about__description">
-                Sevato adalah layanan jasa cuci sepatu profesional yang berlokasi di Purwokerto Utara, Banyumas. 
+                Sevatoo adalah layanan jasa cuci sepatu profesional yang berlokasi di Purwokerto Utara, Banyumas. 
                 Kami berkomitmen untuk memberikan layanan terbaik dalam membersihkan berbagai jenis sepatu dengan 
                 teknologi dan produk pembersih berkualitas tinggi.
             </p>
@@ -24,14 +24,14 @@
             </p>
         </div>
 
-        <img src="{{ asset('assets/img/aboutmee.png') }}" alt="About Sevato" class="about__img" />
+        <img src="{{ asset('assets/img/aboutmee.png') }}" alt="About Sevatoo" class="about__img" />
     </div>
 </section>
 
 <!--========== OUR SERVICES DETAIL ==========-->
 <section class="services section bd-container">
     <span class="section-subtitle">Keunggulan</span>
-    <h2 class="section-title">Mengapa Memilih Sevato?</h2>
+    <h2 class="section-title">Mengapa Memilih Sevatoo?</h2>
 
     <div class="services__container bd-grid">
         <div class="services__content">
@@ -82,7 +82,7 @@
                 Jl. Letjen Pol. Soemarto No. 126<br>
                 Purwokerto Utara, Banyumas<br><br>
                 <strong>Telepon:</strong> 085267145967<br>
-                <strong>Email:</strong> sevato@gmail.com
+                <strong>Email:</strong> sevatoo@gmail.com
             </p>
         </div>
 

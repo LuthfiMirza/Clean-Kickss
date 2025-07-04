@@ -11,7 +11,7 @@
     <!--========== CSS ==========-->
     <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}" />
 
-    <title>@yield('title', 'Jasa Cuci Sepatu - Sevato')</title>
+    <title>@yield('title', 'Jasa Cuci Sepatu - Sevatoo')</title>
     <link rel="shortcut icon" href="{{ asset('assets/img/LOGO BISNIS SEVATOO trans.png') }}" />
 
     @stack('styles')
@@ -25,7 +25,7 @@
     <!--========== HEADER ==========-->
     <header class="l-header" id="header">
         <nav class="nav bd-container">
-            <a href="{{ route('home') }}" class="nav__logo">Sevato</a>
+            <a href="{{ route('home') }}" class="nav__logo">Sevatoo</a>
 
             <div class="nav__menu" id="nav-menu">
                 <ul class="nav__list">
@@ -69,7 +69,7 @@
     <footer class="footer section bd-container">
         <div class="footer__container bd-grid">
             <div class="footer__content">
-                <a href="{{ route('home') }}" class="footer__logo">Sevato</a>
+                <a href="{{ route('home') }}" class="footer__logo">Sevatoo</a>
                 <span class="footer__description">Cleanning shoes & sneakers</span>
                 <div>
                     <a href="#" class="footer__social"><i class="bx bxl-facebook"></i></a>
@@ -103,12 +103,12 @@
                     <li>Purwokerto Utara - Banyumas</li>
                     <li>Jl. Letjen Pol. Soemarto No. 126</li>
                     <li>085267145967</li>
-                    <li>sevato@gmail.com</li>
+                    <li>sevatoo@gmail.com</li>
                 </ul>
             </div>
         </div>
 
-        <p class="footer__copy">&#169; {{ date('Y') }} Sevato. All right reserved</p>
+        <p class="footer__copy">&#169; {{ date('Y') }} Sevatoo. All right reserved</p>
     </footer>
 
     <!--========== SCROLL REVEAL ==========-->

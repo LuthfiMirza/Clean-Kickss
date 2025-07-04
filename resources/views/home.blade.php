@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
-@section('title', 'Beranda - Jasa Cuci Sepatu Sevato')
+@section('title', 'Beranda - Jasa Cuci Sepatu Sevatoo')
 
 @section('content')
 <!--========== HOME ==========-->
 <section class="home" id="home">
     <div class="home__container bd-container bd-grid">
         <div class="home__data">
-            <h1 class="home__title">SEVATO</h1>
+            <h1 class="home__title">SEVATOO</h1>
             <h2 class="home__subtitle">
                 Jasa pembersih sepatu, <br />
                 terjangkau, terbersih <br />
@@ -19,7 +19,7 @@
             </div>
         </div>
 
-        <img src="{{ asset('assets/img/LOGO BISNIS SEVATOO trans.png') }}" alt="Sevato Logo" class="home__img" />
+        <img src="{{ asset('assets/img/LOGO BISNIS SEVATOO trans.png') }}" alt="Sevatoo Logo" class="home__img" />
     </div>
 </section>
 

@@ -24,31 +24,41 @@
                     
                     @php
                         $statusClasses = [
-                            'menunggu_konfirmasi' => 'booking-detail__status--pending',
-                            'dikonfirmasi' => 'booking-detail__status--confirmed',
-                            'sudah_diambil' => 'booking-detail__status--picked',
-                            'sedang_dikerjakan' => 'booking-detail__status--processing',
-                            'siap_diantar' => 'booking-detail__status--ready',
-                            'sudah_diantar' => 'booking-detail__status--completed',
-                            'dibatalkan' => 'booking-detail__status--cancelled'
+                            'pending' => 'booking-detail__status--pending',
+                            'confirmed' => 'booking-detail__status--confirmed',
+                            'picked_up' => 'booking-detail__status--picked',
+                            'in_progress' => 'booking-detail__status--processing',
+                            'ready' => 'booking-detail__status--ready',
+                            'delivered' => 'booking-detail__status--completed',
+                            'cancelled' => 'booking-detail__status--cancelled'
                         ];
                         $statusClass = $statusClasses[$booking->status] ?? 'booking-detail__status--default';
                         
                         $statusProgress = [
-                            'menunggu_konfirmasi' => 10,
-                            'dikonfirmasi' => 25,
-                            'sudah_diambil' => 40,
-                            'sedang_dikerjakan' => 60,
-                            'siap_diantar' => 80,
-                            'sudah_diantar' => 100,
-                            'dibatalkan' => 0
+                            'pending' => 10,
+                            'confirmed' => 25,
+                            'picked_up' => 40,
+                            'in_progress' => 60,
+                            'ready' => 80,
+                            'delivered' => 100,
+                            'cancelled' => 0
                         ];
                         $progress = $statusProgress[$booking->status] ?? 0;
+                        
+                        $statusLabels = [
+                            'pending' => 'Menunggu Konfirmasi',
+                            'confirmed' => 'Dikonfirmasi',
+                            'picked_up' => 'Sudah Diambil',
+                            'in_progress' => 'Sedang Dikerjakan',
+                            'ready' => 'Siap Diantar',
+                            'delivered' => 'Sudah Diantar',
+                            'cancelled' => 'Dibatalkan'
+                        ];
                     @endphp
                     
                     <div class="booking-detail__status-header">
                         <span class="booking-detail__status {{ $statusClass }}">
-                            {{ ucwords(str_replace('_', ' ', $booking->status)) }}
+                            {{ $statusLabels[$booking->status] ?? ucwords(str_replace('_', ' ', $booking->status)) }}
                         </span>
                         <span class="booking-detail__progress-text">{{ $progress }}% Selesai</span>
                     </div>
@@ -60,21 +70,25 @@
                     <!-- Status Timeline -->
                     <div class="booking-detail__timeline">
                         @php
-                            $statuses = [
-                                'menunggu_konfirmasi' => 'Menunggu Konfirmasi',
-                                'dikonfirmasi' => 'Dikonfirmasi',
-                                'sudah_diambil' => 'Sudah Diambil',
-                                'sedang_dikerjakan' => 'Sedang Dikerjakan',
-                                'siap_diantar' => 'Siap Diantar',
-                                'sudah_diantar' => 'Sudah Diantar'
+                            $timelineStatuses = [
+                                'pending' => 'Menunggu Konfirmasi',
+                                'confirmed' => 'Dikonfirmasi',
+                                'picked_up' => 'Sudah Diambil',
+                                'in_progress' => 'Sedang Dikerjakan',
+                                'ready' => 'Siap Diantar',
+                                'delivered' => 'Sudah Diantar'
                             ];
-                            $currentStatusIndex = array_search($booking->status, array_keys($statuses));
+                            $currentStatusIndex = array_search($booking->status, array_keys($timelineStatuses));
+                            // If status is cancelled, don't show any as completed
+                            if ($booking->status === 'cancelled') {
+                                $currentStatusIndex = -1;
+                            }
                         @endphp
                         
-                        @foreach($statuses as $statusKey => $statusLabel)
+                        @foreach($timelineStatuses as $statusKey => $statusLabel)
                             @php
-                                $statusIndex = array_search($statusKey, array_keys($statuses));
-                                $isCompleted = $statusIndex <= $currentStatusIndex;
+                                $statusIndex = array_search($statusKey, array_keys($timelineStatuses));
+                                $isCompleted = $currentStatusIndex !== false && $statusIndex <= $currentStatusIndex;
                                 $isCurrent = $statusKey === $booking->status;
                             @endphp
                             
@@ -83,6 +97,13 @@
                                 <span class="booking-detail__timeline-label">{{ $statusLabel }}</span>
                             </div>
                         @endforeach
+                        
+                        @if($booking->status === 'cancelled')
+                        <div class="booking-detail__timeline-item booking-detail__timeline-item--current">
+                            <div class="booking-detail__timeline-dot"></div>
+                            <span class="booking-detail__timeline-label">Dibatalkan</span>
+                        </div>
+                        @endif
                     </div>
                 </div>
 
@@ -181,13 +202,19 @@
                             <p class="booking-detail__detail-label">Status Pembayaran</p>
                             @php
                                 $paymentClasses = [
-                                    'belum_bayar' => 'booking-detail__payment--unpaid',
-                                    'sudah_bayar' => 'booking-detail__payment--paid',
-                                    'dikembalikan' => 'booking-detail__payment--refunded'
+                                    'pending' => 'booking-detail__payment--unpaid',
+                                    'paid' => 'booking-detail__payment--paid',
+                                    'refunded' => 'booking-detail__payment--refunded'
                                 ];
                                 $paymentClass = $paymentClasses[$booking->payment_status] ?? 'booking-detail__payment--default';
+                                
+                                $paymentLabels = [
+                                    'pending' => 'Belum Bayar',
+                                    'paid' => 'Sudah Bayar',
+                                    'refunded' => 'Dikembalikan'
+                                ];
                             @endphp
-                            <p class="booking-detail__detail-value {{ $paymentClass }}">{{ ucwords(str_replace('_', ' ', $booking->payment_status)) }}</p>
+                            <p class="booking-detail__detail-value {{ $paymentClass }}">{{ $paymentLabels[$booking->payment_status] ?? ucwords(str_replace('_', ' ', $booking->payment_status)) }}</p>
                         </div>
                     </div>
                 </div>

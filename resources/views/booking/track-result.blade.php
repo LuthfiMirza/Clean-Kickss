@@ -26,18 +26,28 @@
                         <div class="track-result__status-info">
                             @php
                                 $statusClasses = [
-                                    'menunggu_konfirmasi' => 'track-result__status--pending',
-                                    'dikonfirmasi' => 'track-result__status--confirmed',
-                                    'sudah_diambil' => 'track-result__status--picked',
-                                    'sedang_dikerjakan' => 'track-result__status--processing',
-                                    'siap_diantar' => 'track-result__status--ready',
-                                    'sudah_diantar' => 'track-result__status--completed',
-                                    'dibatalkan' => 'track-result__status--cancelled'
+                                    'pending' => 'track-result__status--pending',
+                                    'confirmed' => 'track-result__status--confirmed',
+                                    'picked_up' => 'track-result__status--picked',
+                                    'in_progress' => 'track-result__status--processing',
+                                    'ready' => 'track-result__status--ready',
+                                    'delivered' => 'track-result__status--completed',
+                                    'cancelled' => 'track-result__status--cancelled'
                                 ];
                                 $statusClass = $statusClasses[$booking->status] ?? 'track-result__status--default';
+                                
+                                $statusLabels = [
+                                    'pending' => 'Menunggu Konfirmasi',
+                                    'confirmed' => 'Dikonfirmasi',
+                                    'picked_up' => 'Sudah Diambil',
+                                    'in_progress' => 'Sedang Dikerjakan',
+                                    'ready' => 'Siap Diantar',
+                                    'delivered' => 'Sudah Diantar',
+                                    'cancelled' => 'Dibatalkan'
+                                ];
                             @endphp
                             <span class="track-result__status {{ $statusClass }}">
-                                {{ ucwords(str_replace('_', ' ', $booking->status)) }}
+                                {{ $statusLabels[$booking->status] ?? ucwords(str_replace('_', ' ', $booking->status)) }}
                             </span>
                             <p class="track-result__date">{{ \Carbon\Carbon::parse($booking->created_at)->format('d M Y, H:i') }}</p>
                         </div>
@@ -60,13 +70,19 @@
                             <p class="track-result__detail-label">Pembayaran</p>
                             @php
                                 $paymentClasses = [
-                                    'belum_bayar' => 'track-result__payment--unpaid',
-                                    'sudah_bayar' => 'track-result__payment--paid',
-                                    'dikembalikan' => 'track-result__payment--refunded'
+                                    'pending' => 'track-result__payment--unpaid',
+                                    'paid' => 'track-result__payment--paid',
+                                    'refunded' => 'track-result__payment--refunded'
                                 ];
                                 $paymentClass = $paymentClasses[$booking->payment_status] ?? 'track-result__payment--default';
+                                
+                                $paymentLabels = [
+                                    'pending' => 'Belum Bayar',
+                                    'paid' => 'Sudah Bayar',
+                                    'refunded' => 'Dikembalikan'
+                                ];
                             @endphp
-                            <p class="track-result__detail-value {{ $paymentClass }}">{{ ucwords(str_replace('_', ' ', $booking->payment_status)) }}</p>
+                            <p class="track-result__detail-value {{ $paymentClass }}">{{ $paymentLabels[$booking->payment_status] ?? ucwords(str_replace('_', ' ', $booking->payment_status)) }}</p>
                         </div>
                     </div>
 
@@ -90,13 +106,13 @@
                             <span class="track-result__progress-label">Progress</span>
                             @php
                                 $statusProgress = [
-                                    'menunggu_konfirmasi' => 10,
-                                    'dikonfirmasi' => 25,
-                                    'sudah_diambil' => 40,
-                                    'sedang_dikerjakan' => 60,
-                                    'siap_diantar' => 80,
-                                    'sudah_diantar' => 100,
-                                    'dibatalkan' => 0
+                                    'pending' => 10,
+                                    'confirmed' => 25,
+                                    'picked_up' => 40,
+                                    'in_progress' => 60,
+                                    'ready' => 80,
+                                    'delivered' => 100,
+                                    'cancelled' => 0
                                 ];
                                 $progress = $statusProgress[$booking->status] ?? 0;
                             @endphp
@@ -111,11 +127,11 @@
                         <a href="{{ route('booking.show', $booking->id) }}" class="button track-result__button--primary">
                             Lihat Detail
                         </a>
-                        @if($booking->status === 'menunggu_konfirmasi')
+                        @if($booking->status === 'pending')
                         <span class="track-result__status-badge track-result__status-badge--pending">
                             Menunggu Konfirmasi
                         </span>
-                        @elseif($booking->status === 'sudah_diantar')
+                        @elseif($booking->status === 'delivered')
                         <span class="track-result__status-badge track-result__status-badge--completed">
                             Selesai
                         </span>
