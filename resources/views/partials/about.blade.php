@@ -8,7 +8,7 @@
                 cuci sepatu terbaik.
             </h2>
             <p class="about__description">Kami siap menerima dan membersihkan sepatu anda, dengan layanan yang sangat baik, harga terbaik dan pastinya dengan hasil yang terbaik, kunjungi kami.</p>
-            <a href="#" class="button">Tentang kami</a>
+            <a href="{{ route('about') }}" class="button">Tentang kami</a>
         </div>
 
         <img src="{{ asset('assets/img/aboutmee.png') }}" alt="About Us" class="about__img" />

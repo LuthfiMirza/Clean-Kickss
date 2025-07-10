@@ -15,7 +15,11 @@
             </h2>
             <div class="home__buttons">
                 <a href="#menu" class="button">Lihat Menu</a>
-                <a href="{{ route('booking.create') }}" class="button button-secondary">Booking Sekarang</a>
+                @auth
+                    <a href="{{ route('booking.create') }}" class="button button-secondary">Booking Sekarang</a>
+                @else
+                    <a href="{{ route('login') }}" class="button button-secondary">Login untuk Booking</a>
+                @endauth
             </div>
         </div>
 
@@ -33,7 +37,7 @@
                 cuci sepatu terbaik.
             </h2>
             <p class="about__description">Kami siap menerima dan membersihkan sepatu anda, dengan layanan yang sangat baik, harga terbaik dan pastinya dengan hasil yang terbaik, kunjungi kami.</p>
-            <a href="#" class="button">Tentang kami</a>
+            <a href="{{ route('about') }}" class="button">Tentang kami</a>
         </div>
 
         <img src="{{ asset('assets/img/aboutmee.png') }}" alt="About Us" class="about__img" />
@@ -90,28 +94,17 @@
             <h3 class="menu__name">{{ $service['name'] }}</h3>
             <span class="menu__detail">{{ $service['detail'] }}</span>
             <span class="menu__preci">{{ $service['price'] }}</span>
-            <a href="{{ route('booking.create', ['service' => $service['id'] ?? $loop->index + 1]) }}" class="button menu__button">
-                <i class="bx bx-cart-alt"></i>
-            </a>
+            @auth
+                <a href="{{ route('booking.create', ['service' => $service['id'] ?? $loop->index + 1]) }}" class="button menu__button">
+                    <i class="bx bx-cart-alt"></i>
+                </a>
+            @else
+                <a href="{{ route('login') }}" class="button menu__button" title="Login untuk booking">
+                    <i class="bx bx-cart-alt"></i>
+                </a>
+            @endauth
         </div>
         @endforeach
-    </div>
-</section>
-
-<!--===== APP =======-->
-<section class="app section bd-container">
-    <div class="app__container bd-grid">
-        <div class="app__data">
-            <span class="section-subtitle app__initial">App</span>
-            <h2 class="section-title app__initial">Tersedia Aplikasi</h2>
-            <p class="app__description">Temukan aplikasi dan unduh, anda dapat membuat pesanan jasa, melihat harga, serta melihat proses pengerjaan atau pengiriman dan masih banyak lagi.</p>
-            <div class="app__stores">
-                <a href="#"><img src="{{ asset('assets/img/app1.png') }}" alt="Google Play Store" class="app__store" /></a>
-                <a href="#"><img src="{{ asset('assets/img/app2.png') }}" alt="App Store" class="app__store" /></a>
-            </div>
-        </div>
-
-        <img src="{{ asset('assets/img/mobile-app.png') }}" alt="Mobile App" class="app__img" />
     </div>
 </section>
 
@@ -125,7 +118,11 @@
         </div>
 
         <div class="contact__button">
-            <a href="{{ route('booking.create') }}" class="button">Booking Sekarang</a>
+            @auth
+                <a href="{{ route('booking.create') }}" class="button">Booking Sekarang</a>
+            @else
+                <a href="{{ route('login') }}" class="button">Login untuk Booking</a>
+            @endauth
             <a href="{{ route('booking.track') }}" class="button button-outline">Lacak Booking</a>
         </div>
     </div>

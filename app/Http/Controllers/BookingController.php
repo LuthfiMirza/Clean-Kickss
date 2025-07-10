@@ -7,6 +7,7 @@ use App\Models\Customer;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class BookingController extends Controller
 {
@@ -19,7 +20,8 @@ class BookingController extends Controller
     public function create()
     {
         $services = Service::where('is_active', true)->get();
-        return view('booking.create', compact('services'));
+        $user = auth()->user();
+        return view('booking.create', compact('services', 'user'));
     }
 
     public function store(Request $request)
@@ -58,6 +60,7 @@ class BookingController extends Controller
             $deliveryDateTime = $request->delivery_time ? $request->booking_date . ' ' . $request->delivery_time : null;
             
             $booking = Booking::create([
+                'user_id' => auth()->id(), // Link to authenticated user
                 'customer_id' => $customer->id,
                 'service_id' => $service->id,
                 'booking_date' => $request->booking_date,
@@ -121,5 +124,63 @@ class BookingController extends Controller
     {
         $booking = Booking::with(['customer', 'service'])->findOrFail($id);
         return view('booking.show', compact('booking'));
+    }
+
+    public function uploadPaymentProof(Request $request, $id)
+    {
+        $booking = Booking::with(['customer', 'user'])->findOrFail($id);
+        
+        // Check if user owns this booking
+        $user = auth()->user();
+        $canUpload = false;
+        
+        // Check ownership in order of preference:
+        // 1. User ID matches booking user_id (most reliable)
+        // 2. User email matches customer email (if both exist)
+        // 3. User phone matches customer phone (if user has phone field)
+        // 4. User is admin (if admin field exists)
+        
+        if ($booking->user_id && $booking->user_id === $user->id) {
+            $canUpload = true;
+        } elseif ($booking->customer->email && $user->email && $booking->customer->email === $user->email) {
+            $canUpload = true;
+        } elseif (isset($user->phone) && $user->phone && $booking->customer->phone === $user->phone) {
+            $canUpload = true;
+        } elseif (isset($user->is_admin) && $user->is_admin) {
+            $canUpload = true;
+        }
+        
+        if (!$canUpload) {
+            return back()->withErrors(['error' => 'Anda tidak memiliki akses untuk mengupload bukti pembayaran booking ini.']);
+        }
+
+        $request->validate([
+            'payment_proof' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+        ], [
+            'payment_proof.required' => 'File bukti pembayaran harus diupload.',
+            'payment_proof.image' => 'File harus berupa gambar.',
+            'payment_proof.mimes' => 'File harus berformat: jpeg, png, jpg, atau gif.',
+            'payment_proof.max' => 'Ukuran file maksimal 2MB.'
+        ]);
+
+        try {
+            // Delete old payment proof if exists
+            if ($booking->payment_proof) {
+                Storage::disk('public')->delete($booking->payment_proof);
+            }
+
+            // Store new payment proof
+            $path = $request->file('payment_proof')->store('payment-proofs', 'public');
+            
+            // Update booking
+            $booking->update([
+                'payment_proof' => $path,
+                'payment_status' => 'paid'
+            ]);
+
+            return back()->with('success', 'Bukti pembayaran berhasil diupload! Status pembayaran telah diperbarui.');
+        } catch (\Exception $e) {
+            return back()->withErrors(['error' => 'Gagal mengupload bukti pembayaran: ' . $e->getMessage()]);
+        }
     }
 }

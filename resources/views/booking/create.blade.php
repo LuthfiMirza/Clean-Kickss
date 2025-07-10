@@ -13,6 +13,41 @@
         max-width: 800px;
     }
     
+    .user-info-banner {
+        background: linear-gradient(135deg, var(--first-color) 0%, var(--first-color-alt) 100%);
+        color: white;
+        padding: 1.5rem;
+        border-radius: 0.75rem;
+        margin-bottom: 2rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+    
+    .user-avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        flex-shrink: 0;
+    }
+    
+    .user-details h3 {
+        margin: 0 0 0.25rem 0;
+        font-size: 1.1rem;
+        font-weight: 600;
+    }
+    
+    .user-details p {
+        margin: 0;
+        opacity: 0.9;
+        font-size: 0.9rem;
+    }
+    
     .form-section {
         margin-bottom: 2rem;
         padding-bottom: 1.5rem;
@@ -66,6 +101,11 @@
         border-color: var(--first-color);
     }
     
+    .form-input.pre-filled {
+        background: #f8fafc;
+        border-color: var(--first-color);
+    }
+    
     .service-option {
         border: 2px solid #e5e7eb;
         border-radius: 0.5rem;
@@ -81,6 +121,11 @@
     }
     
     .service-option input[type="radio"]:checked + .service-content {
+        border-color: var(--first-color);
+        background: rgba(var(--first-color-rgb), 0.1);
+    }
+    
+    .service-option.selected {
         border-color: var(--first-color);
         background: rgba(var(--first-color-rgb), 0.1);
     }
@@ -133,6 +178,27 @@
         border: 1px solid #fca5a5;
     }
     
+    .edit-toggle {
+        background: rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 0.375rem;
+        font-size: 0.875rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .edit-toggle:hover {
+        background: rgba(255, 255, 255, 0.3);
+    }
+    
+    .help-text {
+        font-size: 0.8rem;
+        color: var(--text-color-light);
+        margin-top: 0.25rem;
+    }
+    
     @media (max-width: 768px) {
         .booking-form {
             margin: 1rem;
@@ -141,6 +207,11 @@
         
         .form-row {
             grid-template-columns: 1fr;
+        }
+        
+        .user-info-banner {
+            flex-direction: column;
+            text-align: center;
         }
     }
 </style>
@@ -164,116 +235,201 @@
     @endif
 
     <form action="{{ route('booking.store') }}" method="POST" class="booking-form">
-            @csrf
+        @csrf
+        
+        <!-- User Info Banner -->
+        <div class="user-info-banner">
+            <div class="user-avatar">
+                <i class="bx bx-user"></i>
+            </div>
+            <div class="user-details" style="flex: 1;">
+                <h3>Halo, {{ $user->name }}!</h3>
+                <p>Form telah diisi otomatis dengan data profil Anda. Anda dapat mengubahnya jika diperlukan.</p>
+            </div>
+            <button type="button" class="edit-toggle" onclick="toggleEditMode()">
+                <i class="bx bx-edit"></i> Edit Data
+            </button>
+        </div>
+        
+        <!-- Customer Information -->
+        <div class="form-section">
+            <h2>Informasi Pelanggan</h2>
             
-            <!-- Customer Information -->
-            <div class="form-section">
-                <h2>Informasi Pelanggan</h2>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="customer_name" class="form-label">Nama Lengkap *</label>
-                        <input type="text" id="customer_name" name="customer_name" value="{{ old('customer_name') }}" 
-                               class="form-input" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="customer_phone" class="form-label">Nomor Telepon *</label>
-                        <input type="tel" id="customer_phone" name="customer_phone" value="{{ old('customer_phone') }}" 
-                               class="form-input" required>
-                    </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="customer_name" class="form-label">Nama Lengkap *</label>
+                    <input type="text" id="customer_name" name="customer_name" 
+                           value="{{ old('customer_name', $user->name) }}" 
+                           class="form-input pre-filled" required readonly>
+                    <p class="help-text">Data diambil dari profil Anda</p>
                 </div>
                 
                 <div class="form-group">
-                    <label for="customer_email" class="form-label">Email</label>
-                    <input type="email" id="customer_email" name="customer_email" value="{{ old('customer_email') }}" 
-                           class="form-input">
-                </div>
-                
-                <div class="form-group">
-                    <label for="customer_address" class="form-label">Alamat Lengkap *</label>
-                    <textarea id="customer_address" name="customer_address" rows="3" 
-                              class="form-textarea" required>{{ old('customer_address') }}</textarea>
+                    <label for="customer_phone" class="form-label">Nomor Telepon *</label>
+                    <input type="tel" id="customer_phone" name="customer_phone" 
+                           value="{{ old('customer_phone', $user->phone ?? '') }}" 
+                           class="form-input {{ $user->phone ? 'pre-filled' : '' }}" required 
+                           {{ $user->phone ? 'readonly' : '' }}>
+                    @if($user->phone)
+                        <p class="help-text">Data diambil dari profil Anda</p>
+                    @else
+                        <p class="help-text">Silakan masukkan nomor telepon Anda</p>
+                    @endif
                 </div>
             </div>
+            
+            <div class="form-group">
+                <label for="customer_email" class="form-label">Email</label>
+                <input type="email" id="customer_email" name="customer_email" 
+                       value="{{ old('customer_email', $user->email) }}" 
+                       class="form-input pre-filled" readonly>
+                <p class="help-text">Data diambil dari profil Anda</p>
+            </div>
+            
+            <div class="form-group">
+                <label for="customer_address" class="form-label">Alamat Lengkap *</label>
+                <textarea id="customer_address" name="customer_address" rows="3" 
+                          class="form-textarea" required 
+                          placeholder="Masukkan alamat lengkap untuk pickup/delivery">{{ old('customer_address') }}</textarea>
+                <p class="help-text">Alamat untuk pickup dan delivery sepatu</p>
+            </div>
+        </div>
 
-            <!-- Service Selection -->
-            <div class="form-section">
-                <h2>Pilih Layanan</h2>
-                
-                @foreach($services as $service)
-                <div class="service-option">
-                    <label style="display: flex; align-items: flex-start; cursor: pointer;">
-                        <input type="radio" name="service_id" value="{{ $service->id }}" 
-                               style="margin-right: 1rem; margin-top: 0.25rem;" 
-                               {{ old('service_id') == $service->id || request('service') == $service->id ? 'checked' : '' }} required>
-                        <div style="flex: 1;">
-                            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                                <div>
-                                    <h3 style="font-weight: 600; color: var(--title-color); margin-bottom: 0.5rem;">{{ $service->name }}</h3>
-                                    <p style="color: var(--text-color); font-size: 0.9rem; margin-bottom: 0.25rem;">{{ $service->description }}</p>
-                                    <p style="color: var(--text-color-light); font-size: 0.8rem;">Durasi: {{ $service->duration_minutes }} menit</p>
-                                </div>
-                                <span style="font-size: 1.2rem; font-weight: bold; color: var(--first-color);">Rp {{ number_format($service->price, 0, ',', '.') }}</span>
+        <!-- Service Selection -->
+        <div class="form-section">
+            <h2>Pilih Layanan</h2>
+            
+            @foreach($services as $service)
+            <div class="service-option {{ old('service_id') == $service->id || request('service') == $service->id ? 'selected' : '' }}">
+                <label style="display: flex; align-items: flex-start; cursor: pointer;">
+                    <input type="radio" name="service_id" value="{{ $service->id }}" 
+                           style="margin-right: 1rem; margin-top: 0.25rem;" 
+                           {{ old('service_id') == $service->id || request('service') == $service->id ? 'checked' : '' }} required>
+                    <div style="flex: 1;">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                            <div>
+                                <h3 style="font-weight: 600; color: var(--title-color); margin-bottom: 0.5rem;">{{ $service->name }}</h3>
+                                <p style="color: var(--text-color); font-size: 0.9rem; margin-bottom: 0.25rem;">{{ $service->description }}</p>
+                                <p style="color: var(--text-color-light); font-size: 0.8rem;">Durasi: {{ $service->duration_minutes }} menit</p>
                             </div>
+                            <span style="font-size: 1.2rem; font-weight: bold; color: var(--first-color);">Rp {{ number_format($service->price, 0, ',', '.') }}</span>
                         </div>
-                    </label>
-                </div>
-                @endforeach
-            </div>
-
-            <!-- Booking Details -->
-            <div class="form-section">
-                <h2>Detail Booking</h2>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="booking_date" class="form-label">Tanggal Booking *</label>
-                        <input type="date" id="booking_date" name="booking_date" value="{{ old('booking_date') }}" 
-                               min="{{ date('Y-m-d') }}" class="form-input" required>
                     </div>
-                    
-                    <div class="form-group">
-                        <label for="pickup_time" class="form-label">Waktu Pickup *</label>
-                        <input type="time" id="pickup_time" name="pickup_time" value="{{ old('pickup_time') }}" 
-                               class="form-input" required>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="delivery_time" class="form-label">Waktu Delivery (Opsional)</label>
-                    <input type="time" id="delivery_time" name="delivery_time" value="{{ old('delivery_time') }}" 
-                           class="form-input">
-                    <p style="font-size: 0.8rem; color: var(--text-color-light); margin-top: 0.25rem;">Kosongkan jika akan diambil sendiri</p>
-                </div>
-                
-                <div class="form-group">
-                    <label for="payment_method" class="form-label">Metode Pembayaran *</label>
-                    <select id="payment_method" name="payment_method" class="form-select" required>
-                        <option value="">Pilih Metode Pembayaran</option>
-                        <option value="cash" {{ old('payment_method') == 'cash' ? 'selected' : '' }}>Tunai</option>
-                        <option value="transfer" {{ old('payment_method') == 'transfer' ? 'selected' : '' }}>Transfer Bank</option>
-                        <option value="e_wallet" {{ old('payment_method') == 'e_wallet' ? 'selected' : '' }}>E-Wallet</option>
-                        <option value="credit_card" {{ old('payment_method') == 'credit_card' ? 'selected' : '' }}>Kartu Kredit</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="notes" class="form-label">Catatan Khusus</label>
-                    <textarea id="notes" name="notes" rows="3" class="form-textarea" 
-                              placeholder="Contoh: Sepatu sangat kotor, ada noda membandel, dll.">{{ old('notes') }}</textarea>
-                </div>
+                </label>
             </div>
+            @endforeach
+        </div>
 
-            <!-- Submit Button -->
-            <div style="display: flex; gap: 1rem; flex-direction: column;">
-                <button type="submit" class="btn-submit">
-                    Buat Booking
-                </button>
-                <a href="{{ route('booking.index') }}" class="btn-cancel">
-                    Batal
-                </a>
+        <!-- Booking Details -->
+        <div class="form-section">
+            <h2>Detail Booking</h2>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="booking_date" class="form-label">Tanggal Booking *</label>
+                    <input type="date" id="booking_date" name="booking_date" 
+                           value="{{ old('booking_date', date('Y-m-d', strtotime('+1 day'))) }}" 
+                           min="{{ date('Y-m-d') }}" class="form-input" required>
+                    <p class="help-text">Minimal booking H+1</p>
+                </div>
+                
+                <div class="form-group">
+                    <label for="pickup_time" class="form-label">Waktu Pickup *</label>
+                    <input type="time" id="pickup_time" name="pickup_time" 
+                           value="{{ old('pickup_time', '09:00') }}" 
+                           class="form-input" required>
+                    <p class="help-text">Jam operasional: 08:00 - 17:00</p>
+                </div>
             </div>
-        </form>
+            
+            <div class="form-group">
+                <label for="delivery_time" class="form-label">Waktu Delivery (Opsional)</label>
+                <input type="time" id="delivery_time" name="delivery_time" 
+                       value="{{ old('delivery_time') }}" class="form-input">
+                <p class="help-text">Kosongkan jika akan diambil sendiri</p>
+            </div>
+            
+            <div class="form-group">
+                <label for="payment_method" class="form-label">Metode Pembayaran *</label>
+                <select id="payment_method" name="payment_method" class="form-select" required>
+                    <option value="">Pilih Metode Pembayaran</option>
+                    <option value="cash" {{ old('payment_method') == 'cash' ? 'selected' : '' }}>Tunai</option>
+                    <option value="transfer" {{ old('payment_method') == 'transfer' ? 'selected' : '' }}>Transfer Bank</option>
+                    <option value="e_wallet" {{ old('payment_method') == 'e_wallet' ? 'selected' : '' }}>E-Wallet (GoPay, OVO, DANA)</option>
+                    <option value="credit_card" {{ old('payment_method') == 'credit_card' ? 'selected' : '' }}>Kartu Kredit</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="notes" class="form-label">Catatan Khusus</label>
+                <textarea id="notes" name="notes" rows="3" class="form-textarea" 
+                          placeholder="Contoh: Sepatu sangat kotor, ada noda membandel, warna khusus, dll.">{{ old('notes') }}</textarea>
+                <p class="help-text">Informasi tambahan untuk membantu proses cuci sepatu</p>
+            </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div style="display: flex; gap: 1rem; flex-direction: column;">
+            <button type="submit" class="btn-submit">
+                <i class="bx bx-check"></i> Buat Booking
+            </button>
+            <a href="{{ route('booking.index') }}" class="btn-cancel">
+                <i class="bx bx-arrow-back"></i> Batal
+            </a>
+        </div>
+    </form>
 </section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Service selection handling
+    const serviceOptions = document.querySelectorAll('.service-option');
+    serviceOptions.forEach(option => {
+        const radio = option.querySelector('input[type="radio"]');
+        
+        option.addEventListener('click', function() {
+            serviceOptions.forEach(opt => opt.classList.remove('selected'));
+            this.classList.add('selected');
+            radio.checked = true;
+        });
+    });
+    
+    // Time validation
+    const pickupTime = document.getElementById('pickup_time');
+    const deliveryTime = document.getElementById('delivery_time');
+    
+    pickupTime.addEventListener('change', function() {
+        const time = this.value;
+        if (time < '08:00' || time > '17:00') {
+            alert('Jam pickup harus antara 08:00 - 17:00');
+            this.value = '09:00';
+        }
+    });
+    
+    deliveryTime.addEventListener('change', function() {
+        const time = this.value;
+        if (time && (time < '08:00' || time > '17:00')) {
+            alert('Jam delivery harus antara 08:00 - 17:00');
+            this.value = '';
+        }
+    });
+});
+
+function toggleEditMode() {
+    const readonlyFields = document.querySelectorAll('.form-input[readonly], .form-textarea[readonly]');
+    const button = document.querySelector('.edit-toggle');
+    
+    readonlyFields.forEach(field => {
+        if (field.hasAttribute('readonly')) {
+            field.removeAttribute('readonly');
+            field.classList.remove('pre-filled');
+            button.innerHTML = '<i class="bx bx-lock"></i> Kunci Data';
+        } else {
+            field.setAttribute('readonly', true);
+            field.classList.add('pre-filled');
+            button.innerHTML = '<i class="bx bx-edit"></i> Edit Data';
+        }
+    });
+}
+</script>
 @endsection

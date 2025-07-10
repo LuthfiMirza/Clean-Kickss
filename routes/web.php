@@ -31,11 +31,18 @@ Route::middleware('auth')->group(function () {
     Route::post('/dashboard/update-phone', [DashboardController::class, 'updatePhoneForBookings'])->name('dashboard.update.phone');
 });
 
-// Booking Routes
+// Booking Routes - Specific routes first, then parameterized routes
 Route::get('/booking', [BookingController::class, 'index'])->name('booking.index');
-Route::get('/booking/create', [BookingController::class, 'create'])->name('booking.create');
-Route::post('/booking', [BookingController::class, 'store'])->name('booking.store');
-Route::get('/booking/success/{id}', [BookingController::class, 'success'])->name('booking.success');
 Route::get('/booking/track', [BookingController::class, 'track'])->name('booking.track');
 Route::post('/booking/track', [BookingController::class, 'trackResult'])->name('booking.track.result');
+
+// Protected booking routes
+Route::middleware('auth')->group(function () {
+    Route::get('/booking/create', [BookingController::class, 'create'])->name('booking.create');
+    Route::post('/booking', [BookingController::class, 'store'])->name('booking.store');
+    Route::get('/booking/success/{id}', [BookingController::class, 'success'])->name('booking.success');
+    Route::post('/booking/{id}/upload-payment-proof', [BookingController::class, 'uploadPaymentProof'])->name('booking.upload.payment.proof');
+});
+
+// This route should be last because it has a parameter that could match other routes
 Route::get('/booking/{id}', [BookingController::class, 'show'])->name('booking.show');

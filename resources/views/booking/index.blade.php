@@ -141,9 +141,15 @@
                     <span style="font-size: 1.8rem; font-weight: bold; color: var(--first-color);">Rp {{ number_format($service->price, 0, ',', '.') }}</span>
                     <span style="font-size: 0.9rem; color: var(--text-color-light);">{{ $service->duration_minutes }} menit</span>
                 </div>
-                <a href="{{ route('booking.create', ['service' => $service->id]) }}" class="btn-primary" style="width: 100%; text-align: center;">
-                    Pesan Sekarang
-                </a>
+                @auth
+                    <a href="{{ route('booking.create', ['service' => $service->id]) }}" class="btn-primary" style="width: 100%; text-align: center;">
+                        Pesan Sekarang
+                    </a>
+                @else
+                    <a href="{{ route('login') }}" class="btn-primary" style="width: 100%; text-align: center;">
+                        Login untuk Pesan
+                    </a>
+                @endauth
             </div>
         </div>
         @endforeach
@@ -151,9 +157,15 @@
 
     <!-- Action Buttons -->
     <div style="text-align: center; margin: 3rem 0;">
-        <a href="{{ route('booking.create') }}" class="btn-secondary">
-            Buat Booking Baru
-        </a>
+        @auth
+            <a href="{{ route('booking.create') }}" class="btn-secondary">
+                Buat Booking Baru
+            </a>
+        @else
+            <a href="{{ route('login') }}" class="btn-secondary">
+                Login untuk Booking
+            </a>
+        @endauth
         <a href="{{ route('booking.track') }}" class="btn-outline">
             Lacak Booking
         </a>

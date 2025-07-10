@@ -10,10 +10,10 @@
             <span class="section-subtitle about__initial">Tentang kami</span>
             <h2 class="section-title about__initial">
                 Sevatoo - Jasa Cuci Sepatu <br />
-                Terpercaya di Purwokerto
+                Terpercaya di Jakarta Utara
             </h2>
             <p class="about__description">
-                Sevatoo adalah layanan jasa cuci sepatu profesional yang berlokasi di Purwokerto Utara, Banyumas. 
+                Sevatoo adalah layanan jasa cuci sepatu profesional yang berlokasi di Sunter Agung, Jakarta Utara. 
                 Kami berkomitmen untuk memberikan layanan terbaik dalam membersihkan berbagai jenis sepatu dengan 
                 teknologi dan produk pembersih berkualitas tinggi.
             </p>
@@ -66,7 +66,7 @@
                 <path d="m9,12,2,2,4-4"/>
             </svg>
             <h3 class="services__title">Layanan Antar Jemput</h3>
-            <p class="services__description">Kemudahan layanan antar jemput untuk area Purwokerto dan sekitarnya dengan biaya yang terjangkau.</p>
+            <p class="services__description">Kemudahan layanan antar jemput untuk area Jakarta Utara dan sekitarnya dengan biaya yang terjangkau.</p>
         </div>
     </div>
 </section>
@@ -79,15 +79,15 @@
             <h2 class="section-title contact__initial">Kunjungi Kami</h2>
             <p class="contact__description">
                 <strong>Alamat:</strong><br>
-                Jl. Letjen Pol. Soemarto No. 126<br>
-                Purwokerto Utara, Banyumas<br><br>
-                <strong>Telepon:</strong> 085267145967<br>
+                Jl. Sunter Karya Selatan V. DKI no. 16<br>
+                Sunter Agung<br><br>
+                <strong>Telepon:</strong> 081543425338<br>
                 <strong>Email:</strong> sevatoo@gmail.com
             </p>
         </div>
 
         <div class="contact__button">
-            <a href="https://wa.me/6285267145967" class="button" target="_blank">
+            <a href="https://wa.me/6281543425338" class="button" target="_blank">
                 <i class="bx bxl-whatsapp"></i> WhatsApp
             </a>
         </div>

@@ -11,6 +11,7 @@ class Booking extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
         'customer_id',
         'service_id',
         'booking_date',
@@ -21,6 +22,7 @@ class Booking extends Model
         'total_price',
         'payment_status',
         'payment_method',
+        'payment_proof',
     ];
 
     protected $casts = [
@@ -49,6 +51,11 @@ class Booking extends Model
     const PAYMENT_PENDING = 'pending';
     const PAYMENT_PAID = 'paid';
     const PAYMENT_REFUNDED = 'refunded';
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function customer(): BelongsTo
     {
@@ -102,5 +109,10 @@ class Booking extends Model
         ];
         
         return $methods[$this->payment_method] ?? ucfirst($this->payment_method);
+    }
+
+    public function getPaymentProofUrlAttribute(): ?string
+    {
+        return $this->payment_proof ? asset('storage/' . $this->payment_proof) : null;
     }
 }

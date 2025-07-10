@@ -127,6 +127,26 @@ class BookingResource extends Resource
                     ])
                     ->columns(2),
 
+                Forms\Components\Section::make('Bukti Pembayaran')
+                    ->schema([
+                        Forms\Components\FileUpload::make('payment_proof')
+                            ->label('Bukti Pembayaran')
+                            ->image()
+                            ->directory('payment-proofs')
+                            ->visibility('public')
+                            ->imageEditor()
+                            ->imageEditorAspectRatios([
+                                null,
+                                '16:9',
+                                '4:3',
+                                '1:1',
+                            ])
+                            ->maxSize(2048)
+                            ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/gif'])
+                            ->helperText('Upload bukti pembayaran (JPG, PNG, GIF - Max: 2MB)'),
+                    ])
+                    ->visible(fn (Forms\Get $get) => $get('payment_method') !== 'cash'),
+
                 Forms\Components\Section::make('Catatan')
                     ->schema([
                         Forms\Components\Textarea::make('notes')
@@ -198,6 +218,16 @@ class BookingResource extends Resource
                         Booking::PAYMENT_REFUNDED => 'Dikembalikan',
                         default => $state,
                     }),
+                Tables\Columns\IconColumn::make('payment_proof')
+                    ->label('Bukti Bayar')
+                    ->boolean()
+                    ->trueIcon('heroicon-o-photo')
+                    ->falseIcon('heroicon-o-x-mark')
+                    ->trueColor('success')
+                    ->falseColor('gray')
+                    ->tooltip(fn (Booking $record): string => 
+                        $record->payment_proof ? 'Ada bukti pembayaran' : 'Belum ada bukti pembayaran'
+                    ),
                 Tables\Columns\TextColumn::make('total_price')
                     ->label('Total')
                     ->money('IDR')
@@ -227,6 +257,15 @@ class BookingResource extends Resource
                         Booking::PAYMENT_PAID => 'Sudah Bayar',
                         Booking::PAYMENT_REFUNDED => 'Dikembalikan',
                     ]),
+                Tables\Filters\TernaryFilter::make('payment_proof')
+                    ->label('Bukti Pembayaran')
+                    ->placeholder('Semua')
+                    ->trueLabel('Ada Bukti')
+                    ->falseLabel('Belum Ada Bukti')
+                    ->queries(
+                        true: fn (Builder $query) => $query->whereNotNull('payment_proof'),
+                        false: fn (Builder $query) => $query->whereNull('payment_proof'),
+                    ),
                 Tables\Filters\Filter::make('booking_date')
                     ->form([
                         Forms\Components\DatePicker::make('from')
@@ -256,6 +295,22 @@ class BookingResource extends Resource
                 ->icon('heroicon-m-ellipsis-vertical')
                 ->size('sm')
                 ->color('gray'),
+                
+                // Payment Proof View Action
+                Tables\Actions\Action::make('viewPaymentProof')
+                    ->label('Lihat Bukti')
+                    ->icon('heroicon-o-photo')
+                    ->color('info')
+                    ->size('sm')
+                    ->visible(fn (Booking $record) => !empty($record->payment_proof))
+                    ->modalHeading(fn (Booking $record) => 'Bukti Pembayaran - Booking #' . $record->id)
+                    ->modalContent(fn (Booking $record) => view('filament.modals.payment-proof', [
+                        'booking' => $record,
+                        'imageUrl' => $record->payment_proof_url
+                    ]))
+                    ->modalWidth('3xl')
+                    ->modalSubmitAction(false)
+                    ->modalCancelActionLabel('Tutup'),
                 
                 // Quick Status Update Buttons
                 Tables\Actions\Action::make('confirm')
