@@ -360,6 +360,86 @@
                 </select>
             </div>
             
+            <!-- Bank Transfer Details -->
+            <div id="bank-details" style="display: none;">
+                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.5rem; padding: 1.5rem; margin: 1rem 0;">
+                    <h4 style="color: var(--first-color); margin-bottom: 1rem; font-size: 1.1rem;">
+                        <i class="bx bx-bank"></i> Informasi Bank (Opsional)
+                    </h4>
+                    <p style="color: var(--text-color); font-size: 0.9rem; margin-bottom: 1rem;">
+                        Isi informasi bank jika Anda ingin melakukan transfer ke rekening tertentu
+                    </p>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="bank_name" class="form-label">Nama Bank</label>
+                            <input type="text" id="bank_name" name="bank_name" 
+                                   value="{{ old('bank_name') }}" 
+                                   class="form-input" 
+                                   placeholder="Contoh: BCA, Mandiri, BRI">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="bank_account_number" class="form-label">Nomor Rekening</label>
+                            <input type="text" id="bank_account_number" name="bank_account_number" 
+                                   value="{{ old('bank_account_number') }}" 
+                                   class="form-input" 
+                                   placeholder="Nomor rekening bank">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="bank_account_name" class="form-label">Nama Pemilik Rekening</label>
+                        <input type="text" id="bank_account_name" name="bank_account_name" 
+                               value="{{ old('bank_account_name') }}" 
+                               class="form-input" 
+                               placeholder="Nama sesuai rekening bank">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- E-Wallet Details -->
+            <div id="ewallet-details" style="display: none;">
+                <div style="background: #f0fdf4; border: 1px solid #a7f3d0; border-radius: 0.5rem; padding: 1.5rem; margin: 1rem 0;">
+                    <h4 style="color: #10b981; margin-bottom: 1rem; font-size: 1.1rem;">
+                        <i class="bx bx-wallet"></i> Informasi E-Wallet (Opsional)
+                    </h4>
+                    <p style="color: var(--text-color); font-size: 0.9rem; margin-bottom: 1rem;">
+                        Isi informasi e-wallet jika Anda ingin melakukan pembayaran via e-wallet tertentu
+                    </p>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="ewallet_type" class="form-label">Jenis E-Wallet</label>
+                            <select id="ewallet_type" name="ewallet_type" class="form-select">
+                                <option value="">Pilih E-Wallet</option>
+                                <option value="GoPay" {{ old('ewallet_type') == 'GoPay' ? 'selected' : '' }}>GoPay</option>
+                                <option value="OVO" {{ old('ewallet_type') == 'OVO' ? 'selected' : '' }}>OVO</option>
+                                <option value="DANA" {{ old('ewallet_type') == 'DANA' ? 'selected' : '' }}>DANA</option>
+                                <option value="LinkAja" {{ old('ewallet_type') == 'LinkAja' ? 'selected' : '' }}>LinkAja</option>
+                                <option value="ShopeePay" {{ old('ewallet_type') == 'ShopeePay' ? 'selected' : '' }}>ShopeePay</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="ewallet_number" class="form-label">Nomor E-Wallet</label>
+                            <input type="text" id="ewallet_number" name="ewallet_number" 
+                                   value="{{ old('ewallet_number') }}" 
+                                   class="form-input" 
+                                   placeholder="Nomor telepon e-wallet">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="ewallet_name" class="form-label">Nama Pemilik E-Wallet</label>
+                        <input type="text" id="ewallet_name" name="ewallet_name" 
+                               value="{{ old('ewallet_name') }}" 
+                               class="form-input" 
+                               placeholder="Nama sesuai akun e-wallet">
+                    </div>
+                </div>
+            </div>
+            
             <div class="form-group">
                 <label for="notes" class="form-label">Catatan Khusus</label>
                 <textarea id="notes" name="notes" rows="3" class="form-textarea" 
@@ -393,6 +473,32 @@ document.addEventListener('DOMContentLoaded', function() {
             radio.checked = true;
         });
     });
+    
+    // Payment method handling
+    const paymentMethod = document.getElementById('payment_method');
+    const bankDetails = document.getElementById('bank-details');
+    const ewalletDetails = document.getElementById('ewallet-details');
+    
+    function togglePaymentDetails() {
+        const selectedMethod = paymentMethod.value;
+        
+        // Hide all payment details first
+        bankDetails.style.display = 'none';
+        ewalletDetails.style.display = 'none';
+        
+        // Show relevant details based on selection
+        if (selectedMethod === 'transfer') {
+            bankDetails.style.display = 'block';
+        } else if (selectedMethod === 'e_wallet') {
+            ewalletDetails.style.display = 'block';
+        }
+    }
+    
+    // Initial check for payment method
+    togglePaymentDetails();
+    
+    // Listen for payment method changes
+    paymentMethod.addEventListener('change', togglePaymentDetails);
     
     // Time validation
     const pickupTime = document.getElementById('pickup_time');

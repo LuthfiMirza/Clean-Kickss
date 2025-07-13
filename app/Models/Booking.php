@@ -23,6 +23,12 @@ class Booking extends Model
         'payment_status',
         'payment_method',
         'payment_proof',
+        'bank_name',
+        'bank_account_number',
+        'bank_account_name',
+        'ewallet_type',
+        'ewallet_number',
+        'ewallet_name',
     ];
 
     protected $casts = [

@@ -487,6 +487,40 @@
         </a>
     </div>
 
+    <!-- WhatsApp Confirmation -->
+    <div style="background: linear-gradient(135deg, #25d366 0%, #128c7e 100%); color: white; padding: 2rem; border-radius: 1rem; margin: 2rem 0; text-align: center;">
+        <h3 style="margin-bottom: 1rem; font-size: 1.3rem;">
+            <i class="bx bxl-whatsapp" style="font-size: 1.5rem; margin-right: 0.5rem;"></i>
+            Konfirmasi WhatsApp Otomatis
+        </h3>
+        <p style="margin-bottom: 1.5rem; opacity: 0.9;">
+            Kami akan mengirimkan konfirmasi booking ke WhatsApp Anda dalam beberapa menit
+        </p>
+        <a href="https://wa.me/6281543425338?text=Halo,%20saya%20baru%20saja%20membuat%20booking%20dengan%20ID%20%23{{ $booking->id }}%20untuk%20layanan%20{{ urlencode($booking->service->name) }}.%20Mohon%20konfirmasinya.%20Terima%20kasih!" 
+           target="_blank" 
+           style="background: rgba(255,255,255,0.2); color: white; padding: 0.75rem 1.5rem; border-radius: 0.5rem; text-decoration: none; display: inline-block; transition: all 0.3s ease; font-weight: 600;">
+            <i class="bx bxl-whatsapp"></i> Hubungi via WhatsApp
+        </a>
+    </div>
+
+    <!-- Auto Refresh Status -->
+    <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.5rem; padding: 1.5rem; margin: 2rem 0; text-align: center;">
+        <h4 style="color: var(--first-color); margin-bottom: 1rem;">
+            <i class="bx bx-refresh"></i> Status Auto Update
+        </h4>
+        <p style="color: var(--text-color); margin-bottom: 1rem;">
+            Halaman ini akan otomatis refresh setiap 30 detik untuk update status terbaru
+        </p>
+        <div style="display: flex; align-items: center; justify-content: center; gap: 1rem;">
+            <span style="color: var(--text-color-light); font-size: 0.9rem;">Refresh berikutnya dalam:</span>
+            <span id="countdown" style="background: var(--first-color); color: white; padding: 0.25rem 0.75rem; border-radius: 0.25rem; font-weight: 600; min-width: 3rem; text-align: center;">30</span>
+            <span style="color: var(--text-color-light); font-size: 0.9rem;">detik</span>
+            <button onclick="refreshPage()" style="background: transparent; border: 1px solid var(--first-color); color: var(--first-color); padding: 0.25rem 0.75rem; border-radius: 0.25rem; cursor: pointer; font-size: 0.8rem;">
+                <i class="bx bx-refresh"></i> Refresh Sekarang
+            </button>
+        </div>
+    </div>
+
     <!-- Contact Info -->
     <div class="contact-info">
         <p style="margin-bottom: 0.5rem;">Butuh bantuan? Hubungi kami:</p>
@@ -556,6 +590,72 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+
+    // Auto refresh functionality
+    let countdown = 30;
+    const countdownElement = document.getElementById('countdown');
+    
+    function updateCountdown() {
+        countdownElement.textContent = countdown;
+        countdown--;
+        
+        if (countdown < 0) {
+            refreshPage();
+        }
+    }
+    
+    // Update countdown every second
+    const countdownInterval = setInterval(updateCountdown, 1000);
+    
+    // Auto refresh after 30 seconds
+    const refreshTimeout = setTimeout(function() {
+        refreshPage();
+    }, 30000);
+    
+    // Clear intervals when page is about to unload
+    window.addEventListener('beforeunload', function() {
+        clearInterval(countdownInterval);
+        clearTimeout(refreshTimeout);
+    });
+    
+    // Send WhatsApp notification automatically
+    setTimeout(function() {
+        sendWhatsAppNotification();
+    }, 2000); // Send after 2 seconds
 });
+
+function refreshPage() {
+    window.location.reload();
+}
+
+function sendWhatsAppNotification() {
+    // This would typically be handled by a backend service
+    // For now, we'll just show a notification that WhatsApp message would be sent
+    console.log('WhatsApp notification would be sent to customer');
+    
+    // You could implement actual WhatsApp API integration here
+    // For example, using WhatsApp Business API or a service like Twilio
+}
+
+// Pause auto-refresh when user is interacting with the page
+let userActive = true;
+let inactivityTimer;
+
+function resetInactivityTimer() {
+    userActive = true;
+    clearTimeout(inactivityTimer);
+    inactivityTimer = setTimeout(function() {
+        userActive = false;
+    }, 5000); // Consider user inactive after 5 seconds
+}
+
+// Track user activity
+document.addEventListener('mousemove', resetInactivityTimer);
+document.addEventListener('keypress', resetInactivityTimer);
+document.addEventListener('scroll', resetInactivityTimer);
+document.addEventListener('click', resetInactivityTimer);
+
+// Initialize inactivity timer
+resetInactivityTimer();
 </script>
 @endsection

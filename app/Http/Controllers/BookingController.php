@@ -36,7 +36,13 @@ class BookingController extends Controller
             'pickup_time' => 'required|date_format:H:i',
             'delivery_time' => 'nullable|date_format:H:i',
             'notes' => 'nullable|string',
-            'payment_method' => 'required|in:cash,transfer,e_wallet,credit_card'
+            'payment_method' => 'required|in:cash,transfer,e_wallet,credit_card',
+            'bank_name' => 'nullable|string|max:255',
+            'bank_account_number' => 'nullable|string|max:255',
+            'bank_account_name' => 'nullable|string|max:255',
+            'ewallet_type' => 'nullable|string|max:255',
+            'ewallet_number' => 'nullable|string|max:255',
+            'ewallet_name' => 'nullable|string|max:255',
         ]);
 
         DB::beginTransaction();
@@ -71,6 +77,12 @@ class BookingController extends Controller
                 'total_price' => $service->price,
                 'payment_status' => 'pending',
                 'payment_method' => $request->payment_method,
+                'bank_name' => $request->bank_name,
+                'bank_account_number' => $request->bank_account_number,
+                'bank_account_name' => $request->bank_account_name,
+                'ewallet_type' => $request->ewallet_type,
+                'ewallet_number' => $request->ewallet_number,
+                'ewallet_name' => $request->ewallet_name,
             ]);
 
             DB::commit();
