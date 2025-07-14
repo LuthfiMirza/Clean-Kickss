@@ -223,7 +223,7 @@
                 <div class="booking-detail__help">
                     <h3 class="booking-detail__help-title">Butuh Bantuan?</h3>
                     <div class="booking-detail__help-content">
-                        <p class="booking-detail__help-item"><strong>WhatsApp: +62 812-3456-7890</strong></p>
+                        <p class="booking-detail__help-item"><strong>WhatsApp: +62 815-4342-5338</strong></p>
                         <p class="booking-detail__help-item"><strong>Email: info@cucisepatu.com</strong></p>
                         <p class="booking-detail__help-text">Jam operasional: 08:00 - 20:00</p>
                     </div>

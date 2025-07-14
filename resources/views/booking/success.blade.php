@@ -407,9 +407,100 @@
             Silakan upload bukti pembayaran untuk mempercepat proses konfirmasi booking Anda.
         </p>
         
+        <!-- Payment Accounts Card -->
+        <div class="payment-accounts-card" style="background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 1rem; padding: 2rem; margin-bottom: 1.5rem; text-align: left;">
+            <div class="card-header" style="margin-bottom: 1.5rem;">
+                <h4 class="card-title" style="color: var(--first-color); font-size: 1.2rem; font-weight: 600; margin-bottom: 0.5rem; display: flex; align-items: center;">
+                    @if($booking->payment_method === 'bank_transfer' || $booking->payment_method === 'transfer_bank' || $booking->payment_method === 'bank')
+                        <i class="bx bx-building" style="margin-right: 0.5rem; font-size: 1.3rem;"></i>
+                        Rekening Bank
+                    @elseif($booking->payment_method === 'ewallet' || $booking->payment_method === 'e_wallet' || $booking->payment_method === 'wallet')
+                        <i class="bx bx-mobile-alt" style="margin-right: 0.5rem; font-size: 1.3rem;"></i>
+                        E-Wallet
+                    @else
+                        <i class="bx bx-credit-card" style="margin-right: 0.5rem; font-size: 1.3rem;"></i>
+                        Informasi Pembayaran
+                    @endif
+                </h4>
+                <span class="account-note" style="color: #64748b; font-size: 0.9rem;">Pilih salah satu untuk transfer</span>
+            </div>
+
+            <div class="card-body">
+                <!-- E-Wallet Section -->
+                @if($booking->payment_method === 'ewallet' || $booking->payment_method === 'e_wallet' || $booking->payment_method === 'wallet')
+                    <div class="accounts-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem;">
+                        <!-- GoPay -->
+                        <div class="account-card wallet-account" style="background: white; border: 1px solid #e5e7eb; border-radius: 0.75rem; padding: 1.5rem; position: relative;">
+                            <div class="account-header" style="display: flex; align-items: center; margin-bottom: 1rem;">
+                                <div class="wallet-logo" style="width: 40px; height: 40px; background: #00aa13; border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; margin-right: 1rem;">
+                                    <i class="bx bx-mobile-alt" style="color: white; font-size: 1.2rem;"></i>
+                                </div>
+                                <div class="wallet-name" style="font-weight: 600; color: var(--title-color); font-size: 1.1rem;">GoPay</div>
+                            </div>
+                            <div class="account-details" style="margin-bottom: 1rem;">
+                                <div class="wallet-number" style="font-family: monospace; font-size: 1.1rem; font-weight: 700; color: var(--first-color);">081543425338</div>
+                            </div>
+                            <button class="copy-btn" onclick="copyToClipboard('081543425338', 'Nomor GoPay berhasil disalin!')" style="position: absolute; top: 1rem; right: 1rem; background: var(--first-color); color: white; border: none; padding: 0.5rem 1rem; border-radius: 0.5rem; font-size: 0.8rem; cursor: pointer; display: flex; align-items: center; gap: 0.3rem;">
+                                <i class="bx bx-copy"></i>
+                                <span>Salin</span>
+                            </button>
+                        </div>
+
+                        <!-- OVO -->
+                        <div class="account-card wallet-account" style="background: white; border: 1px solid #e5e7eb; border-radius: 0.75rem; padding: 1.5rem; position: relative;">
+                            <div class="account-header" style="display: flex; align-items: center; margin-bottom: 1rem;">
+                                <div class="wallet-logo" style="width: 40px; height: 40px; background: #4c3494; border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; margin-right: 1rem;">
+                                    <i class="bx bx-mobile-alt" style="color: white; font-size: 1.2rem;"></i>
+                                </div>
+                                <div class="wallet-name" style="font-weight: 600; color: var(--title-color); font-size: 1.1rem;">OVO</div>
+                            </div>
+                            <div class="account-details" style="margin-bottom: 1rem;">
+                                <div class="wallet-number" style="font-family: monospace; font-size: 1.1rem; font-weight: 700; color: var(--first-color);">081543425338</div>
+                            </div>
+                            <button class="copy-btn" onclick="copyToClipboard('081543425338', 'Nomor OVO berhasil disalin!')" style="position: absolute; top: 1rem; right: 1rem; background: var(--first-color); color: white; border: none; padding: 0.5rem 1rem; border-radius: 0.5rem; font-size: 0.8rem; cursor: pointer; display: flex; align-items: center; gap: 0.3rem;">
+                                <i class="bx bx-copy"></i>
+                                <span>Salin</span>
+                            </button>
+                        </div>
+
+                        <!-- DANA -->
+                        <div class="account-card wallet-account" style="background: white; border: 1px solid #e5e7eb; border-radius: 0.75rem; padding: 1.5rem; position: relative;">
+                            <div class="account-header" style="display: flex; align-items: center; margin-bottom: 1rem;">
+                                <div class="wallet-logo" style="width: 40px; height: 40px; background: #118eea; border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; margin-right: 1rem;">
+                                    <i class="bx bx-mobile-alt" style="color: white; font-size: 1.2rem;"></i>
+                                </div>
+                                <div class="wallet-name" style="font-weight: 600; color: var(--title-color); font-size: 1.1rem;">DANA</div>
+                            </div>
+                            <div class="account-details" style="margin-bottom: 1rem;">
+                                <div class="wallet-number" style="font-family: monospace; font-size: 1.1rem; font-weight: 700; color: var(--first-color);">081543425338</div>
+                            </div>
+                            <button class="copy-btn" onclick="copyToClipboard('081543425338', 'Nomor DANA berhasil disalin!')" style="position: absolute; top: 1rem; right: 1rem; background: var(--first-color); color: white; border: none; padding: 0.5rem 1rem; border-radius: 0.5rem; font-size: 0.8rem; cursor: pointer; display: flex; align-items: center; gap: 0.3rem;">
+                                <i class="bx bx-copy"></i>
+                                <span>Salin</span>
+                            </button>
+                        </div>
+                    </div>
+                @endif
+
+                <!-- Payment Instructions -->
+                <div style="background: #fef3c7; border: 1px solid #f59e0b; border-radius: 0.5rem; padding: 1rem; margin-top: 1.5rem;">
+                    <div style="display: flex; align-items: center; margin-bottom: 0.5rem;">
+                        <i class="bx bx-info-circle" style="color: #d97706; margin-right: 0.5rem; font-size: 1.1rem;"></i>
+                        <strong style="color: #92400e;">Petunjuk Pembayaran:</strong>
+                    </div>
+                    <ul style="margin: 0; padding-left: 1.5rem; color: #92400e; font-size: 0.9rem;">
+                        <li>Transfer sesuai dengan total pembayaran: <strong>Rp {{ number_format($booking->total_price, 0, ',', '.') }}</strong></li>
+                        <li>Gunakan salah satu rekening/nomor di atas</li>
+                        <li>Simpan bukti transfer untuk diupload</li>
+                        <li>Upload bukti pembayaran di bawah ini</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
         <form action="{{ route('booking.upload.payment.proof', $booking->id) }}" method="POST" enctype="multipart/form-data" id="payment-form">
             @csrf
-            <div class="upload-area" onclick="document.getElementById('payment_proof').click()">
+            <div class="upload-area" id="upload-area" onclick="openFileDialog()">
                 <div class="upload-icon">
                     <i class="bx bx-cloud-upload"></i>
                 </div>
@@ -420,11 +511,14 @@
                 </p>
             </div>
             
-            <input type="file" id="payment_proof" name="payment_proof" class="file-input" accept="image/*" required>
+            <input type="file" id="payment_proof" name="payment_proof" accept="image/*" required style="display: none;" onchange="handleFileSelect(this)">
             
-            <div id="preview-container" style="display: none; margin: 1rem 0;">
-                <img id="preview-image" class="preview-image" alt="Preview">
+            <div id="preview-container" style="display: none; margin: 1rem 0; text-align: center;">
+                <img id="preview-image" class="preview-image" alt="Preview" style="display: block; margin: 0 auto;">
                 <p id="file-name" style="margin-top: 0.5rem; font-weight: 600; color: var(--title-color);"></p>
+                <button type="button" onclick="removeFile()" style="background: #ef4444; color: white; border: none; padding: 0.5rem 1rem; border-radius: 0.25rem; margin-top: 0.5rem; cursor: pointer;">
+                    <i class="bx bx-trash"></i> Hapus File
+                </button>
             </div>
             
             <button type="submit" class="upload-btn" id="upload-btn" disabled>
@@ -503,72 +597,115 @@
         </a>
     </div>
 
-    <!-- Auto Refresh Status -->
-    <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.5rem; padding: 1.5rem; margin: 2rem 0; text-align: center;">
-        <h4 style="color: var(--first-color); margin-bottom: 1rem;">
-            <i class="bx bx-refresh"></i> Status Auto Update
-        </h4>
-        <p style="color: var(--text-color); margin-bottom: 1rem;">
-            Halaman ini akan otomatis refresh setiap 30 detik untuk update status terbaru
-        </p>
-        <div style="display: flex; align-items: center; justify-content: center; gap: 1rem;">
-            <span style="color: var(--text-color-light); font-size: 0.9rem;">Refresh berikutnya dalam:</span>
-            <span id="countdown" style="background: var(--first-color); color: white; padding: 0.25rem 0.75rem; border-radius: 0.25rem; font-weight: 600; min-width: 3rem; text-align: center;">30</span>
-            <span style="color: var(--text-color-light); font-size: 0.9rem;">detik</span>
-            <button onclick="refreshPage()" style="background: transparent; border: 1px solid var(--first-color); color: var(--first-color); padding: 0.25rem 0.75rem; border-radius: 0.25rem; cursor: pointer; font-size: 0.8rem;">
-                <i class="bx bx-refresh"></i> Refresh Sekarang
-            </button>
-        </div>
-    </div>
-
     <!-- Contact Info -->
     <div class="contact-info">
         <p style="margin-bottom: 0.5rem;">Butuh bantuan? Hubungi kami:</p>
-        <p style="font-weight: 600; color: var(--title-color);">WhatsApp: 081543425338</p>
+        <p style="font-weight: 600; color: var(--title-color);">WhatsApp: +62 815-4342-5338</p>
         <p style="font-weight: 600; color: var(--title-color);">Email: sevatoo@gmail.com</p>
     </div>
 </section>
 
 <script>
+// Simple file upload functionality
+function openFileDialog() {
+    document.getElementById('payment_proof').click();
+}
+
+function handleFileSelect(input) {
+    const file = input.files[0];
+    if (!file) return;
+
+    console.log('File selected:', file.name, file.type, file.size);
+    
+    // Validate file size (2MB)
+    if (file.size > 2 * 1024 * 1024) {
+        alert('Ukuran file terlalu besar. Maksimal 2MB.');
+        input.value = '';
+        return;
+    }
+
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+        alert('File harus berupa gambar.');
+        input.value = '';
+        return;
+    }
+
+    // Show preview
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        document.getElementById('preview-image').src = e.target.result;
+        document.getElementById('file-name').textContent = file.name;
+        document.getElementById('preview-container').style.display = 'block';
+        document.getElementById('upload-btn').disabled = false;
+        
+        // Scroll to preview
+        setTimeout(() => {
+            document.getElementById('preview-container').scrollIntoView({ 
+                behavior: 'smooth', 
+                block: 'center' 
+            });
+        }, 100);
+    };
+    reader.readAsDataURL(file);
+}
+
+function removeFile() {
+    document.getElementById('payment_proof').value = '';
+    document.getElementById('preview-container').style.display = 'none';
+    document.getElementById('upload-btn').disabled = true;
+    document.getElementById('preview-image').src = '';
+    document.getElementById('file-name').textContent = '';
+}
+
+// Copy to clipboard function
+function copyToClipboard(text, message) {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    document.body.appendChild(textarea);
+    textarea.select();
+    textarea.setSelectionRange(0, 99999);
+    
+    try {
+        document.execCommand('copy');
+        
+        if (message) {
+            const notification = document.createElement('div');
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: #10b981;
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 0.5rem;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                z-index: 1000;
+                font-weight: 600;
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.parentNode.removeChild(notification);
+                }
+            }, 3000);
+        }
+    } catch (err) {
+        alert('Gagal menyalin. Silakan salin secara manual: ' + text);
+    }
+    
+    document.body.removeChild(textarea);
+}
+
+// Drag and drop functionality
 document.addEventListener('DOMContentLoaded', function() {
+    const uploadArea = document.getElementById('upload-area');
     const fileInput = document.getElementById('payment_proof');
-    const uploadBtn = document.getElementById('upload-btn');
-    const previewContainer = document.getElementById('preview-container');
-    const previewImage = document.getElementById('preview-image');
-    const fileName = document.getElementById('file-name');
-    const uploadArea = document.querySelector('.upload-area');
-
-    if (fileInput) {
-        fileInput.addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (file) {
-                // Validate file size (2MB)
-                if (file.size > 2 * 1024 * 1024) {
-                    alert('Ukuran file terlalu besar. Maksimal 2MB.');
-                    fileInput.value = '';
-                    return;
-                }
-
-                // Validate file type
-                if (!file.type.startsWith('image/')) {
-                    alert('File harus berupa gambar.');
-                    fileInput.value = '';
-                    return;
-                }
-
-                // Show preview
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    previewImage.src = e.target.result;
-                    fileName.textContent = file.name;
-                    previewContainer.style.display = 'block';
-                    uploadBtn.disabled = false;
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        // Drag and drop functionality
+    
+    if (uploadArea && fileInput) {
         uploadArea.addEventListener('dragover', function(e) {
             e.preventDefault();
             uploadArea.classList.add('dragover');
@@ -586,76 +723,10 @@ document.addEventListener('DOMContentLoaded', function() {
             const files = e.dataTransfer.files;
             if (files.length > 0) {
                 fileInput.files = files;
-                fileInput.dispatchEvent(new Event('change'));
+                handleFileSelect(fileInput);
             }
         });
     }
-
-    // Auto refresh functionality
-    let countdown = 30;
-    const countdownElement = document.getElementById('countdown');
-    
-    function updateCountdown() {
-        countdownElement.textContent = countdown;
-        countdown--;
-        
-        if (countdown < 0) {
-            refreshPage();
-        }
-    }
-    
-    // Update countdown every second
-    const countdownInterval = setInterval(updateCountdown, 1000);
-    
-    // Auto refresh after 30 seconds
-    const refreshTimeout = setTimeout(function() {
-        refreshPage();
-    }, 30000);
-    
-    // Clear intervals when page is about to unload
-    window.addEventListener('beforeunload', function() {
-        clearInterval(countdownInterval);
-        clearTimeout(refreshTimeout);
-    });
-    
-    // Send WhatsApp notification automatically
-    setTimeout(function() {
-        sendWhatsAppNotification();
-    }, 2000); // Send after 2 seconds
 });
-
-function refreshPage() {
-    window.location.reload();
-}
-
-function sendWhatsAppNotification() {
-    // This would typically be handled by a backend service
-    // For now, we'll just show a notification that WhatsApp message would be sent
-    console.log('WhatsApp notification would be sent to customer');
-    
-    // You could implement actual WhatsApp API integration here
-    // For example, using WhatsApp Business API or a service like Twilio
-}
-
-// Pause auto-refresh when user is interacting with the page
-let userActive = true;
-let inactivityTimer;
-
-function resetInactivityTimer() {
-    userActive = true;
-    clearTimeout(inactivityTimer);
-    inactivityTimer = setTimeout(function() {
-        userActive = false;
-    }, 5000); // Consider user inactive after 5 seconds
-}
-
-// Track user activity
-document.addEventListener('mousemove', resetInactivityTimer);
-document.addEventListener('keypress', resetInactivityTimer);
-document.addEventListener('scroll', resetInactivityTimer);
-document.addEventListener('click', resetInactivityTimer);
-
-// Initialize inactivity timer
-resetInactivityTimer();
 </script>
 @endsection

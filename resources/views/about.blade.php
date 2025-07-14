@@ -81,7 +81,7 @@
                 <strong>Alamat:</strong><br>
                 Jl. Sunter Karya Selatan V. DKI no. 16<br>
                 Sunter Agung<br><br>
-                <strong>Telepon:</strong> 081543425338<br>
+                <strong>Telepon:</strong> +62 815-4342-5338<br>
                 <strong>Email:</strong> sevatoo@gmail.com
             </p>
         </div>
