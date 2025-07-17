@@ -356,6 +356,7 @@
                     <option value="cash" {{ old('payment_method') == 'cash' ? 'selected' : '' }}>Tunai</option>
                     <option value="transfer" {{ old('payment_method') == 'transfer' ? 'selected' : '' }}>Transfer Bank</option>
                     <option value="e_wallet" {{ old('payment_method') == 'e_wallet' ? 'selected' : '' }}>E-Wallet (GoPay, OVO, DANA)</option>
+                    <option value="qris" {{ old('payment_method') == 'qris' ? 'selected' : '' }}>QRIS</option>
                     <option value="credit_card" {{ old('payment_method') == 'credit_card' ? 'selected' : '' }}>Kartu Kredit</option>
                 </select>
             </div>
@@ -440,6 +441,38 @@
                 </div>
             </div>
             
+            <!-- QRIS Details -->
+            <div id="qris-details" style="display: none;">
+                <div style="background: #fef3c7; border: 1px solid #fbbf24; border-radius: 0.5rem; padding: 1.5rem; margin: 1rem 0;">
+                    <h4 style="color: #d97706; margin-bottom: 1rem; font-size: 1.1rem;">
+                        <i class="bx bx-qr"></i> Informasi QRIS
+                    </h4>
+                    <p style="color: var(--text-color); font-size: 0.9rem; margin-bottom: 1rem;">
+                        Pembayaran menggunakan QRIS (Quick Response Code Indonesian Standard) - Scan QR code untuk melakukan pembayaran
+                    </p>
+                    
+                    <div style="background: white; border-radius: 0.5rem; padding: 1rem; text-align: center; margin-bottom: 1rem;">
+                        <div style="width: 150px; height: 150px; background: #f3f4f6; border: 2px dashed #d1d5db; border-radius: 0.5rem; margin: 0 auto; display: flex; align-items: center; justify-content: center; flex-direction: column;">
+                            <i class="bx bx-qr" style="font-size: 3rem; color: #6b7280; margin-bottom: 0.5rem;"></i>
+                            <p style="color: #6b7280; font-size: 0.8rem; margin: 0;">QR Code akan ditampilkan setelah booking dikonfirmasi</p>
+                        </div>
+                    </div>
+                    
+                    <div style="background: #eff6ff; border: 1px solid #3b82f6; border-radius: 0.375rem; padding: 1rem;">
+                        <h5 style="color: #1d4ed8; margin-bottom: 0.5rem; font-size: 0.9rem;">
+                            <i class="bx bx-info-circle"></i> Cara Pembayaran QRIS:
+                        </h5>
+                        <ul style="color: var(--text-color); font-size: 0.8rem; margin: 0; padding-left: 1.5rem;">
+                            <li>Buka aplikasi mobile banking atau e-wallet Anda</li>
+                            <li>Pilih menu "Scan QR" atau "QRIS"</li>
+                            <li>Scan QR code yang akan diberikan setelah booking</li>
+                            <li>Konfirmasi pembayaran sesuai nominal yang tertera</li>
+                            <li>Simpan bukti pembayaran untuk konfirmasi</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
             <div class="form-group">
                 <label for="notes" class="form-label">Catatan Khusus</label>
                 <textarea id="notes" name="notes" rows="3" class="form-textarea" 
@@ -478,6 +511,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const paymentMethod = document.getElementById('payment_method');
     const bankDetails = document.getElementById('bank-details');
     const ewalletDetails = document.getElementById('ewallet-details');
+    const qrisDetails = document.getElementById('qris-details');
     
     function togglePaymentDetails() {
         const selectedMethod = paymentMethod.value;
@@ -485,12 +519,15 @@ document.addEventListener('DOMContentLoaded', function() {
         // Hide all payment details first
         bankDetails.style.display = 'none';
         ewalletDetails.style.display = 'none';
+        qrisDetails.style.display = 'none';
         
         // Show relevant details based on selection
         if (selectedMethod === 'transfer') {
             bankDetails.style.display = 'block';
         } else if (selectedMethod === 'e_wallet') {
             ewalletDetails.style.display = 'block';
+        } else if (selectedMethod === 'qris') {
+            qrisDetails.style.display = 'block';
         }
     }
     

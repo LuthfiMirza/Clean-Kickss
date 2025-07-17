@@ -36,7 +36,7 @@ class BookingController extends Controller
             'pickup_time' => 'required|date_format:H:i',
             'delivery_time' => 'nullable|date_format:H:i',
             'notes' => 'nullable|string',
-            'payment_method' => 'required|in:cash,transfer,e_wallet,credit_card',
+            'payment_method' => 'required|in:cash,transfer,e_wallet,qris,credit_card',
             'bank_name' => 'nullable|string|max:255',
             'bank_account_number' => 'nullable|string|max:255',
             'bank_account_name' => 'nullable|string|max:255',

@@ -117,6 +117,7 @@ class BookingResource extends Resource
                                 'cash' => 'Tunai',
                                 'transfer' => 'Transfer Bank',
                                 'e_wallet' => 'E-Wallet',
+                                'qris' => 'QRIS',
                                 'credit_card' => 'Kartu Kredit',
                             ]),
                         Forms\Components\TextInput::make('total_price')

@@ -111,6 +111,7 @@ class Booking extends Model
             'cash' => 'Tunai',
             'transfer' => 'Transfer Bank',
             'e_wallet' => 'E-Wallet',
+            'qris' => 'QRIS',
             'credit_card' => 'Kartu Kredit',
         ];
         
