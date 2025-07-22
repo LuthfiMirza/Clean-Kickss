@@ -452,9 +452,9 @@
                     </p>
                     
                     <div style="background: white; border-radius: 0.5rem; padding: 1rem; text-align: center; margin-bottom: 1rem;">
-                        <div style="width: 150px; height: 150px; background: #f3f4f6; border: 2px dashed #d1d5db; border-radius: 0.5rem; margin: 0 auto; display: flex; align-items: center; justify-content: center; flex-direction: column;">
-                            <i class="bx bx-qr" style="font-size: 3rem; color: #6b7280; margin-bottom: 0.5rem;"></i>
-                            <p style="color: #6b7280; font-size: 0.8rem; margin: 0;">QR Code akan ditampilkan setelah booking dikonfirmasi</p>
+                        <div style="margin: 0 auto; display: flex; align-items: center; justify-content: center; flex-direction: column;">
+                            <img src="{{ asset('assets/img/qris.png') }}" alt="QRIS QR Code Preview" style="width: 150px; height: 150px; border-radius: 0.5rem; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); margin-bottom: 0.5rem;">
+                            <p style="color: #6b7280; font-size: 0.8rem; margin: 0;">Preview QR Code QRIS</p>
                         </div>
                     </div>
                     

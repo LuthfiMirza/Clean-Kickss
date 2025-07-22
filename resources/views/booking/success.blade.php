@@ -397,8 +397,92 @@
         @endif
     </div>
 
-    <!-- Payment Proof Upload -->
-    @if($booking->payment_method !== 'cash' && $booking->payment_status !== 'paid')
+    <!-- QRIS Payment Section -->
+    @if($booking->payment_method === 'qris' && $booking->payment_status !== 'paid')
+    <div class="payment-upload-card">
+        <h3 style="font-size: 1.3rem; font-weight: 600; color: #d97706; margin-bottom: 1rem;">
+            <i class="bx bx-qr"></i> Pembayaran QRIS
+        </h3>
+        <p style="color: var(--text-color); margin-bottom: 1.5rem;">
+            Scan QR Code di bawah ini untuk melakukan pembayaran menggunakan QRIS
+        </p>
+        
+        <!-- QRIS QR Code Display -->
+        <div style="background: white; border: 2px solid #f59e0b; border-radius: 1rem; padding: 2rem; margin-bottom: 1.5rem; text-align: center;">
+            <div style="background: #fef3c7; border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 1.5rem;">
+                <h4 style="color: #d97706; margin-bottom: 1rem; font-size: 1.1rem; display: flex; align-items: center; justify-content: center;">
+                    <i class="bx bx-qr" style="margin-right: 0.5rem; font-size: 1.3rem;"></i>
+                    QR Code QRIS
+                </h4>
+                <div style="background: white; border-radius: 0.5rem; padding: 1.5rem; margin: 1rem auto; display: inline-block; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                    <img src="{{ asset('assets/img/qris.png') }}" alt="QRIS QR Code" style="width: 200px; height: 200px; display: block;">
+                </div>
+                <div style="background: white; border-radius: 0.5rem; padding: 1rem; margin-top: 1rem;">
+                    <p style="color: #92400e; font-weight: 600; margin-bottom: 0.5rem;">Total Pembayaran:</p>
+                    <p style="color: #d97706; font-size: 1.5rem; font-weight: bold; margin: 0;">Rp {{ number_format($booking->total_price, 0, ',', '.') }}</p>
+                </div>
+            </div>
+            
+            <div style="background: #eff6ff; border: 1px solid #3b82f6; border-radius: 0.5rem; padding: 1.5rem; text-align: left;">
+                <h5 style="color: #1d4ed8; margin-bottom: 1rem; font-size: 1rem; display: flex; align-items: center;">
+                    <i class="bx bx-info-circle" style="margin-right: 0.5rem;"></i>
+                    Cara Pembayaran QRIS:
+                </h5>
+                <ol style="color: var(--text-color); font-size: 0.9rem; margin: 0; padding-left: 1.5rem; line-height: 1.6;">
+                    <li>Buka aplikasi mobile banking atau e-wallet Anda (GoPay, OVO, DANA, dll)</li>
+                    <li>Pilih menu "Scan QR" atau "QRIS"</li>
+                    <li>Arahkan kamera ke QR code di atas</li>
+                    <li>Pastikan nominal pembayaran sesuai: <strong>Rp {{ number_format($booking->total_price, 0, ',', '.') }}</strong></li>
+                    <li>Konfirmasi pembayaran</li>
+                    <li>Simpan bukti pembayaran dan upload di bawah ini</li>
+                </ol>
+            </div>
+            
+            <div style="background: #fef3c7; border: 1px solid #f59e0b; border-radius: 0.5rem; padding: 1rem; margin-top: 1rem;">
+                <p style="color: #92400e; font-size: 0.9rem; margin: 0; text-align: center;">
+                    <i class="bx bx-time" style="margin-right: 0.5rem;"></i>
+                    QR Code ini berlaku untuk pembayaran booking ID #{{ $booking->id }}
+                </p>
+            </div>
+        </div>
+        
+        <!-- Upload Bukti Pembayaran QRIS -->
+        <h4 style="color: var(--first-color); margin-bottom: 1rem;">Upload Bukti Pembayaran</h4>
+        <p style="color: var(--text-color); margin-bottom: 1.5rem;">
+            Setelah melakukan pembayaran QRIS, silakan upload screenshot bukti pembayaran
+        </p>
+        
+        <form action="{{ route('booking.upload.payment.proof', $booking->id) }}" method="POST" enctype="multipart/form-data" id="payment-form">
+            @csrf
+            <div class="upload-area" id="upload-area" onclick="openFileDialog()">
+                <div class="upload-icon">
+                    <i class="bx bx-cloud-upload"></i>
+                </div>
+                <p style="font-weight: 600; color: var(--title-color); margin-bottom: 0.5rem;">Klik untuk memilih file</p>
+                <p style="color: var(--text-color); font-size: 0.9rem;">atau drag & drop file di sini</p>
+                <p style="color: var(--text-color-light); font-size: 0.8rem; margin-top: 0.5rem;">
+                    Format: JPG, PNG, GIF (Max: 2MB)
+                </p>
+            </div>
+            
+            <input type="file" id="payment_proof" name="payment_proof" accept="image/*" required style="display: none;" onchange="handleFileSelect(this)">
+            
+            <div id="preview-container" style="display: none; margin: 1rem 0; text-align: center;">
+                <img id="preview-image" class="preview-image" alt="Preview" style="display: block; margin: 0 auto;">
+                <p id="file-name" style="margin-top: 0.5rem; font-weight: 600; color: var(--title-color);"></p>
+                <button type="button" onclick="removeFile()" style="background: #ef4444; color: white; border: none; padding: 0.5rem 1rem; border-radius: 0.25rem; margin-top: 0.5rem; cursor: pointer;">
+                    <i class="bx bx-trash"></i> Hapus File
+                </button>
+            </div>
+            
+            <button type="submit" class="upload-btn" id="upload-btn" disabled>
+                <i class="bx bx-upload"></i> Upload Bukti Pembayaran
+            </button>
+        </form>
+    </div>
+    
+    <!-- Payment Proof Upload for Non-QRIS -->
+    @elseif($booking->payment_method !== 'cash' && $booking->payment_method !== 'qris' && $booking->payment_status !== 'paid')
     <div class="payment-upload-card">
         <h3 style="font-size: 1.3rem; font-weight: 600; color: var(--first-color); margin-bottom: 1rem;">
             <i class="bx bx-upload"></i> Upload Bukti Pembayaran
