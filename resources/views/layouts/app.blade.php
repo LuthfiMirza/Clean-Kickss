@@ -191,7 +191,7 @@
                 <ul class="nav__list">
                     <li class="nav__item"><a href="{{ route('home') }}" class="nav__link {{ request()->routeIs('home') ? 'active-link' : '' }}">Beranda</a></li>
                     <li class="nav__item"><a href="{{ route('about') }}" class="nav__link {{ request()->routeIs('about') ? 'active-link' : '' }}">Tentang</a></li>
-                    <li class="nav__item"><a href="{{ route('booking.index') }}" class="nav__link {{ request()->routeIs('booking.*') && !request()->routeIs('booking.track*') ? 'active-link' : '' }}">Booking</a></li>
+                    <li class="nav__item"><a href="{{ route('booking.index') }}" class="nav__link {{ request()->routeIs('booking.*') && !request()->routeIs('booking.track*') ? 'active-link' : '' }}">Pemesanan</a></li>
                     <li class="nav__item"><a href="{{ route('booking.track') }}" class="nav__link {{ request()->routeIs('booking.track*') ? 'active-link' : '' }}">Lacak</a></li>
                     
                     @auth
@@ -222,11 +222,11 @@
                                     </a>
                                     <a href="{{ route('dashboard.bookings') }}" class="profile-menu-item">
                                         <i class="bx bx-calendar"></i>
-                                        <span>Booking Saya</span>
+                                        <span>Pemesanan Saya</span>
                                     </a>
                                     <a href="{{ route('booking.create') }}" class="profile-menu-item">
                                         <i class="bx bx-plus"></i>
-                                        <span>Booking Baru</span>
+                                        <span>Pemesanan Baru</span>
                                     </a>
                                 </div>
                                 <div class="profile-popup-footer">
@@ -270,8 +270,8 @@
             <div class="footer__content">
                 <h3 class="footer__title">Layanan/jasa</h3>
                 <ul>
-                    <li><a href="{{ route('booking.create') }}" class="footer__link">Booking Baru</a></li>
-                    <li><a href="{{ route('booking.track') }}" class="footer__link">Lacak Booking</a></li>
+                    <li><a href="{{ route('booking.create') }}" class="footer__link">Pemesanan Baru</a></li>
+                    <li><a href="{{ route('booking.track') }}" class="footer__link">Lacak Pemesanan</a></li>
                     <li><a href="{{ route('booking.index') }}" class="footer__link">Lihat Layanan</a></li>
                 </ul>
             </div>

@@ -16,9 +16,9 @@
             <div class="home__buttons">
                 <a href="#menu" class="button">Lihat Menu</a>
                 @auth
-                    <a href="{{ route('booking.create') }}" class="button button-secondary">Booking Sekarang</a>
+                    <a href="{{ route('booking.create') }}" class="button button-secondary">Pesan Sekarang</a>
                 @else
-                    <a href="{{ route('login') }}" class="button button-secondary">Login untuk Booking</a>
+                    <a href="{{ route('login') }}" class="button button-secondary">Login untuk Pemesanan</a>
                 @endauth
             </div>
         </div>
@@ -99,7 +99,7 @@
                     <i class="bx bx-cart-alt"></i>
                 </a>
             @else
-                <a href="{{ route('login') }}" class="button menu__button" title="Login untuk booking">
+                <a href="{{ route('login') }}" class="button menu__button" title="Login untuk pemesanan">
                     <i class="bx bx-cart-alt"></i>
                 </a>
             @endauth
@@ -119,11 +119,11 @@
 
         <div class="contact__button">
             @auth
-                <a href="{{ route('booking.create') }}" class="button">Booking Sekarang</a>
+                <a href="{{ route('booking.create') }}" class="button">Pesan Sekarang</a>
             @else
-                <a href="{{ route('login') }}" class="button">Login untuk Booking</a>
+                <a href="{{ route('login') }}" class="button">Login untuk Pemesanan</a>
             @endauth
-            <a href="{{ route('booking.track') }}" class="button button-outline">Lacak Booking</a>
+            <a href="{{ route('booking.track') }}" class="button button-outline">Lacak Pemesanan</a>
         </div>
     </div>
 </section>

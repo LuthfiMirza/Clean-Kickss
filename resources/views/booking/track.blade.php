@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Lacak Booking')
+@section('title', 'Lacak Pemesanan')
 
 @push('styles')
 <link rel="stylesheet" href="{{ asset('assets/css/booking.css') }}">
@@ -10,8 +10,8 @@
 <section class="track section bd-container">
     <div class="track__container">
         <div class="track__header">
-            <h2 class="section-title">Lacak Booking</h2>
-            <p class="track__subtitle">Masukkan nomor telepon untuk melihat status booking Anda</p>
+            <h2 class="section-title">Lacak Pemesanan</h2>
+            <p class="track__subtitle">Masukkan nomor telepon untuk melihat status pemesanan Anda</p>
         </div>
 
         <div class="track__form-container">
@@ -26,15 +26,15 @@
                 </div>
                 
                 <div class="track__input-group">
-                    <label for="booking_id" class="track__label">ID Booking (Opsional)</label>
+                    <label for="booking_id" class="track__label">ID Pemesanan (Opsional)</label>
                     <input type="text" id="booking_id" name="booking_id" value="{{ old('booking_id') }}" 
                            class="track__input" 
                            placeholder="Contoh: 123">
-                    <p class="track__help-text">Kosongkan untuk melihat semua booking</p>
+                    <p class="track__help-text">Kosongkan untuk melihat semua pemesanan</p>
                 </div>
                 
                 <button type="submit" class="button track__button">
-                    Lacak Booking
+                    Lacak Pemesanan
                 </button>
             </form>
         </div>
@@ -45,24 +45,24 @@
             <div class="track__help-content">
                 <p class="track__help-subtitle"><strong>Cara melacak:</strong></p>
                 <ul class="track__help-list">
-                    <li>Masukkan nomor telepon yang digunakan saat booking</li>
-                    <li>ID Booking bisa ditemukan di email konfirmasi atau SMS</li>
-                    <li>Jika lupa ID Booking, kosongkan saja untuk melihat semua booking</li>
+                    <li>Masukkan nomor telepon yang digunakan saat pemesanan</li>
+                    <li>ID Pemesanan bisa ditemukan di email konfirmasi atau SMS</li>
+                    <li>Jika lupa ID Pemesanan, kosongkan saja untuk melihat semua pemesanan</li>
                 </ul>
             </div>
         </div>
 
         <!-- Status Legend -->
         <div class="track__status-legend">
-            <h3 class="track__status-title">Status Booking</h3>
+            <h3 class="track__status-title">Status Pemesanan</h3>
             <div class="track__status-list">
                 <div class="track__status-item">
                     <span class="track__status-badge track__status-badge--pending">Menunggu Konfirmasi</span>
-                    <span class="track__status-desc">Booking baru, menunggu konfirmasi dari tim</span>
+                    <span class="track__status-desc">Pemesanan baru, menunggu konfirmasi dari tim</span>
                 </div>
                 <div class="track__status-item">
                     <span class="track__status-badge track__status-badge--confirmed">Dikonfirmasi</span>
-                    <span class="track__status-desc">Booking dikonfirmasi, siap untuk pickup</span>
+                    <span class="track__status-desc">Pemesanan dikonfirmasi, siap untuk pickup</span>
                 </div>
                 <div class="track__status-item">
                     <span class="track__status-badge track__status-badge--picked">Sudah Diambil</span>
