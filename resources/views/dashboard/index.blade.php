@@ -13,13 +13,13 @@
         <div class="dashboard__header">
             <div class="dashboard__welcome">
                 <h1 class="section-title">Selamat Datang, {{ $user->name }}!</h1>
-                <p class="dashboard__subtitle">Kelola dan lacak semua booking cuci sepatu Anda</p>
+                <p class="dashboard__subtitle">Kelola dan lacak semua pemesanan cuci sepatu Anda</p>
                 
                 
             </div>
             <div class="dashboard__actions">
                 <a href="{{ route('booking.create') }}" class="button dashboard__button--primary">
-                    Booking Baru
+                    Pemesanan Baru
                 </a>
                 <a href="{{ route('dashboard.profile') }}" class="button dashboard__button--secondary">
                     Profile
@@ -35,7 +35,7 @@
                 </div>
                 <div class="dashboard__stat-info">
                     <h3 class="dashboard__stat-number">{{ $totalBookings }}</h3>
-                    <p class="dashboard__stat-label">Total Booking</p>
+                    <p class="dashboard__stat-label">Total Pemesanan</p>
                 </div>
             </div>
             
@@ -73,7 +73,7 @@
         <!-- Recent Bookings -->
         <div class="dashboard__section">
             <div class="dashboard__section-header">
-                <h2 class="dashboard__section-title">Booking Terbaru</h2>
+                <h2 class="dashboard__section-title">Pemesanan Terbaru</h2>
                 <a href="{{ route('dashboard.bookings') }}" class="dashboard__section-link">
                     Lihat Semua
                 </a>
@@ -85,7 +85,7 @@
                     <div class="dashboard__booking-card">
                         <div class="dashboard__booking-header">
                             <div class="dashboard__booking-info">
-                                <h3 class="dashboard__booking-title">Booking #{{ $booking->id }}</h3>
+                                <h3 class="dashboard__booking-title">Pemesanan #{{ $booking->id }}</h3>
                                 <p class="dashboard__booking-service">{{ $booking->service->name }}</p>
                                 <p class="dashboard__booking-date">{{ \Carbon\Carbon::parse($booking->created_at)->format('d M Y, H:i') }}</p>
                             </div>
@@ -132,13 +132,13 @@
                     <div class="dashboard__empty-icon">
                         <i class="bx bx-package"></i>
                     </div>
-                    <h3 class="dashboard__empty-title">Belum Ada Booking</h3>
-                    <p class="dashboard__empty-text">Tidak ada booking yang ditemukan. Mungkin Anda sudah pernah booking dengan nomor telepon yang berbeda?</p>
+                    <h3 class="dashboard__empty-title">Belum Ada Pemesanan</h3>
+                    <p class="dashboard__empty-text">Tidak ada pemesanan yang ditemukan. Mungkin Anda sudah pernah memesan dengan nomor telepon yang berbeda?</p>
                     
                     <!-- Search for existing bookings -->
                     <div class="dashboard__search-section">
-                        <h4 class="dashboard__search-title">Cari Booking Lama</h4>
-                        <p class="dashboard__search-desc">Masukkan nomor telepon yang pernah Anda gunakan untuk booking:</p>
+                        <h4 class="dashboard__search-title">Cari Pemesanan Lama</h4>
+                        <p class="dashboard__search-desc">Masukkan nomor telepon yang pernah Anda gunakan untuk pemesanan:</p>
                         
                         <form id="searchBookingsForm" class="dashboard__search-form">
                             @csrf
@@ -150,7 +150,7 @@
                                        placeholder="Contoh: 081234567890"
                                        required>
                                 <button type="submit" class="button dashboard__search-button">
-                                    Cari Booking
+                                    Cari Pemesanan
                                 </button>
                             </div>
                         </form>
@@ -162,7 +162,7 @@
                     
                     <div class="dashboard__empty-actions">
                         <a href="{{ route('booking.create') }}" class="button dashboard__empty-button">
-                            Buat Booking Baru
+                            Buat Pemesanan Baru
                         </a>
                     </div>
                 </div>
@@ -177,16 +177,16 @@
                     <div class="dashboard__quick-action-icon">
                         <i class="bx bx-plus"></i>
                     </div>
-                    <h3 class="dashboard__quick-action-title">Booking Baru</h3>
-                    <p class="dashboard__quick-action-desc">Buat booking cuci sepatu baru</p>
+                    <h3 class="dashboard__quick-action-title">Pemesanan Baru</h3>
+                    <p class="dashboard__quick-action-desc">Buat pemesanan cuci sepatu baru</p>
                 </a>
                 
                 <a href="{{ route('dashboard.bookings') }}" class="dashboard__quick-action">
                     <div class="dashboard__quick-action-icon">
                         <i class="bx bx-list-ul"></i>
                     </div>
-                    <h3 class="dashboard__quick-action-title">Semua Booking</h3>
-                    <p class="dashboard__quick-action-desc">Lihat riwayat booking lengkap</p>
+                    <h3 class="dashboard__quick-action-title">Semua Pemesanan</h3>
+                    <p class="dashboard__quick-action-desc">Lihat riwayat pemesanan lengkap</p>
                 </a>
                 
                 <a href="{{ route('dashboard.profile') }}" class="dashboard__quick-action">
@@ -231,12 +231,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (data.success) {
                     displaySearchResults(data.bookings, data.message);
                 } else {
-                    alert('Terjadi kesalahan saat mencari booking');
+                    alert('Terjadi kesalahan saat mencari pemesanan');
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('Terjadi kesalahan saat mencari booking');
+                alert('Terjadi kesalahan saat mencari pemesanan');
             })
             .finally(() => {
                 // Reset button state
@@ -275,7 +275,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 resultsHTML += `
                     <div class="dashboard__search-result-item">
                         <div class="dashboard__search-result-info">
-                            <div class="dashboard__search-result-title">Booking #${booking.id} - ${booking.service.name}</div>
+                            <div class="dashboard__search-result-title">Pemesanan #${booking.id} - ${booking.service.name}</div>
                             <div class="dashboard__search-result-details">
                                 Status: ${statusLabel} | Tanggal: ${bookingDate} | Customer: ${booking.customer.name}
                             </div>
@@ -297,7 +297,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Make connectBookings function global
     window.connectBookings = function(phone) {
-        if (confirm('Apakah Anda yakin ingin menghubungkan booking dengan nomor telepon ' + phone + ' ke akun Anda?')) {
+        if (confirm('Apakah Anda yakin ingin menghubungkan pemesanan dengan nomor telepon ' + phone + ' ke akun Anda?')) {
             const formData = new FormData();
             formData.append('phone', phone);
             formData.append('_token', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
@@ -310,12 +310,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (response.ok) {
                     window.location.reload();
                 } else {
-                    alert('Terjadi kesalahan saat menghubungkan booking');
+                    alert('Terjadi kesalahan saat menghubungkan pemesanan');
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('Terjadi kesalahan saat menghubungkan booking');
+                alert('Terjadi kesalahan saat menghubungkan pemesanan');
             });
         }
     };

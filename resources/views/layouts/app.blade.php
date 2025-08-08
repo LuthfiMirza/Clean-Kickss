@@ -280,9 +280,9 @@
                 <h3 class="footer__title">Informasi</h3>
                 <ul>
                     <li><a href="#" class="footer__link">Event</a></li>
-                    <li><a href="#" class="footer__link">Contact us</a></li>
-                    <li><a href="#" class="footer__link">Privacy policy</a></li>
-                    <li><a href="#" class="footer__link">Terms of services</a></li>
+                    <li><a href="#" class="footer__link">Hubungi kami</a></li>
+                    <li><a href="#" class="footer__link">Kebijakan privasi</a></li>
+                    <li><a href="#" class="footer__link">Syarat layanan</a></li>
                 </ul>
             </div>
 
@@ -297,7 +297,7 @@
             </div>
         </div>
 
-        <p class="footer__copy">&#169; {{ date('Y') }} Sevatoo. All right reserved</p>
+        <p class="footer__copy">&#169; {{ date('Y') }} Sevatoo. Semua hak dilindungi</p>
     </footer>
 
     <!--========== SCROLL REVEAL ==========-->

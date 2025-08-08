@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Semua Booking')
+@section('title', 'Semua Pemesanan')
 
 @push('styles')
 <link rel="stylesheet" href="{{ asset('assets/css/booking.css') }}">
@@ -12,15 +12,15 @@
         <!-- Header -->
         <div class="dashboard-bookings__header">
             <div class="dashboard-bookings__title-section">
-                <h1 class="section-title">Semua Booking</h1>
-                <p class="dashboard-bookings__subtitle">Riwayat lengkap booking cuci sepatu Anda</p>
+                <h1 class="section-title">Semua Pemesanan</h1>
+                <p class="dashboard-bookings__subtitle">Riwayat lengkap pemesanan cuci sepatu Anda</p>
             </div>
             <div class="dashboard-bookings__actions">
                 <a href="{{ route('dashboard') }}" class="button dashboard-bookings__button--secondary">
                     Kembali ke Dashboard
                 </a>
                 <a href="{{ route('booking.create') }}" class="button dashboard-bookings__button--primary">
-                    Booking Baru
+                    Pemesanan Baru
                 </a>
             </div>
         </div>
@@ -31,7 +31,7 @@
                 <div class="dashboard-bookings__card">
                     <div class="dashboard-bookings__card-header">
                         <div class="dashboard-bookings__booking-info">
-                            <h3 class="dashboard-bookings__booking-title">Booking #{{ $booking->id }}</h3>
+                            <h3 class="dashboard-bookings__booking-title">Pemesanan #{{ $booking->id }}</h3>
                             <p class="dashboard-bookings__service-name">{{ $booking->service->name }}</p>
                         </div>
                         <div class="dashboard-bookings__status-info">
@@ -66,7 +66,7 @@
 
                     <div class="dashboard-bookings__details">
                         <div class="dashboard-bookings__detail-item">
-                            <p class="dashboard-bookings__detail-label">Tanggal Booking</p>
+                            <p class="dashboard-bookings__detail-label">Tanggal Pemesanan</p>
                             <p class="dashboard-bookings__detail-value">{{ \Carbon\Carbon::parse($booking->booking_date)->format('d F Y') }}</p>
                         </div>
                         <div class="dashboard-bookings__detail-item">
@@ -158,11 +158,11 @@
                 <div class="dashboard-bookings__empty-icon">
                     <i class="bx bx-package"></i>
                 </div>
-                <h3 class="dashboard-bookings__empty-title">Belum Ada Booking</h3>
-                <p class="dashboard-bookings__empty-text">Anda belum memiliki booking. Mulai dengan membuat booking pertama Anda!</p>
+                <h3 class="dashboard-bookings__empty-title">Belum Ada Pemesanan</h3>
+                <p class="dashboard-bookings__empty-text">Anda belum memiliki pemesanan. Mulai dengan membuat pemesanan pertama Anda!</p>
                 <div class="dashboard-bookings__empty-actions">
                     <a href="{{ route('booking.create') }}" class="button dashboard-bookings__button--primary">
-                        Buat Booking Pertama
+                        Buat Pemesanan Pertama
                     </a>
                     <a href="{{ route('dashboard') }}" class="button dashboard-bookings__button--secondary">
                         Kembali ke Dashboard

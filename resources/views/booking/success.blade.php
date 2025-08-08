@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Booking Berhasil')
+@section('title', 'Pemesanan Berhasil')
 
 @push('styles')
 <style>
@@ -304,7 +304,7 @@
         <div class="success-icon">
             <i class="bx bx-check"></i>
         </div>
-        <h1 style="font-size: 2.5rem; font-weight: bold; margin-bottom: 1rem;">Booking Berhasil!</h1>
+        <h1 style="font-size: 2.5rem; font-weight: bold; margin-bottom: 1rem;">Pemesanan Berhasil!</h1>
         <p style="font-size: 1.2rem; opacity: 0.9;">Terima kasih telah mempercayakan sepatu Anda kepada kami</p>
     </div>
 </section>
@@ -330,10 +330,10 @@
 
     <!-- Booking Details -->
     <div class="booking-details-card">
-        <h2 style="font-size: 1.5rem; font-weight: 600; color: var(--title-color); margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--first-color); display: inline-block;">Detail Booking</h2>
+        <h2 style="font-size: 1.5rem; font-weight: 600; color: var(--title-color); margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--first-color); display: inline-block;">Detail Pemesanan</h2>
             
         <div class="detail-row">
-            <span class="detail-label">ID Booking:</span>
+            <span class="detail-label">ID Pemesanan:</span>
             <span class="detail-value" style="color: var(--first-color);">#{{ $booking->id }}</span>
         </div>
         
@@ -358,7 +358,7 @@
         </div>
         
         <div class="detail-row">
-            <span class="detail-label">Tanggal Booking:</span>
+            <span class="detail-label">Tanggal Pemesanan:</span>
             <span class="detail-value">{{ \Carbon\Carbon::parse($booking->booking_date)->format('d F Y') }}</span>
         </div>
         
@@ -385,7 +385,7 @@
         </div>
         
         <div class="detail-row">
-            <span class="detail-label">Status Booking:</span>
+            <span class="detail-label">Status Pemesanan:</span>
             <span class="status-badge">{{ $booking->status_label }}</span>
         </div>
         
@@ -487,8 +487,7 @@
         <h3 style="font-size: 1.3rem; font-weight: 600; color: var(--first-color); margin-bottom: 1rem;">
             <i class="bx bx-upload"></i> Upload Bukti Pembayaran
         </h3>
-        <p style="color: var(--text-color); margin-bottom: 1.5rem;">
-            Silakan upload bukti pembayaran untuk mempercepat proses konfirmasi booking Anda.
+        <p style="color: var(--text-color); margin-bottom: 1.5rem;"Silakan upload bukti pembayaran untuk mempercepat proses konfirmasi pemesanan Anda.
         </p>
         
         <!-- Payment Accounts Card -->

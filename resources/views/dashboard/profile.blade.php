@@ -98,7 +98,7 @@
 
                 <!-- Quick Stats -->
                 <div class="profile__card">
-                    <h3 class="profile__card-title">Statistik Booking</h3>
+                    <h3 class="profile__card-title">Statistik Pemesanan</h3>
                     
                     @php
                         $user = auth()->user();
@@ -115,7 +115,7 @@
                     <div class="profile__stats">
                         <div class="profile__stat-item">
                             <div class="profile__stat-number">{{ $totalBookings }}</div>
-                            <div class="profile__stat-label">Total Booking</div>
+                            <div class="profile__stat-label">Total Pemesanan</div>
                         </div>
                         <div class="profile__stat-item">
                             <div class="profile__stat-number">{{ $completedBookings }}</div>
@@ -137,7 +137,7 @@
                             Kembali ke Dashboard
                         </a>
                         <a href="{{ route('dashboard.bookings') }}" class="button profile__action-button--secondary">
-                            Lihat Semua Booking
+                            Lihat Semua Pemesanan
                         </a>
                         <form method="POST" action="{{ route('logout') }}" class="profile__logout-form">
                             @csrf

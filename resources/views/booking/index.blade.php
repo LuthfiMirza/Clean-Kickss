@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Layanan Booking')
+@section('title', 'Layanan Pemesanan')
 
 @push('styles')
 <style>
@@ -159,15 +159,15 @@
     <div style="text-align: center; margin: 3rem 0;">
         @auth
             <a href="{{ route('booking.create') }}" class="btn-secondary">
-                Buat Booking Baru
+                Buat Pemesanan Baru
             </a>
         @else
             <a href="{{ route('login') }}" class="btn-secondary">
-                Login untuk Booking
+                Login untuk Pemesanan
             </a>
         @endauth
         <a href="{{ route('booking.track') }}" class="btn-outline">
-            Lacak Booking
+            Lacak Pemesanan
         </a>
     </div>
 </section>
@@ -179,7 +179,7 @@
             <div class="feature-icon" style="background: rgba(59, 130, 246, 0.1); color: #3b82f6;">
                 <i class="bx bx-time"></i>
             </div>
-            <h3 style="font-size: 1.2rem; font-weight: 600; margin-bottom: 1rem; color: var(--title-color);">Pickup & Delivery</h3>
+            <h3 style="font-size: 1.2rem; font-weight: 600; margin-bottom: 1rem; color: var(--title-color);">Antar Jemput</h3>
             <p style="color: var(--text-color); line-height: 1.6;">Kami jemput dan antar sepatu Anda sesuai jadwal yang disepakati</p>
         </div>
         <div style="text-align: center;">

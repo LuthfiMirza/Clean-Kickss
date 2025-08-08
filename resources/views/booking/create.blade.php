@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Buat Booking Baru')
+@section('title', 'Buat Pemesanan Baru')
 
 @push('styles')
 <style>
@@ -220,8 +220,8 @@
 @section('content')
 <section class="section bd-container" style="margin-top: 4rem;">
     <div style="text-align: center; margin-bottom: 2rem;">
-        <h1 style="font-size: 2.5rem; font-weight: bold; color: var(--title-color); margin-bottom: 0.5rem;">Buat Booking Baru</h1>
-        <p style="color: var(--text-color); font-size: 1.1rem;">Isi form di bawah untuk membuat booking cuci sepatu</p>
+        <h1 style="font-size: 2.5rem; font-weight: bold; color: var(--title-color); margin-bottom: 0.5rem;">Buat Pemesanan Baru</h1>
+        <p style="color: var(--text-color); font-size: 1.1rem;">Isi form di bawah untuk membuat pemesanan cuci sepatu</p>
     </div>
 
     @if($errors->any())
@@ -247,7 +247,7 @@
                 <p>Form telah diisi otomatis dengan data profil Anda. Anda dapat mengubahnya jika diperlukan.</p>
             </div>
             <button type="button" class="edit-toggle" onclick="toggleEditMode()">
-                <i class="bx bx-edit"></i> Edit Data
+                <i class="bx bx-edit"></i> Ubah Data
             </button>
         </div>
         
@@ -290,8 +290,8 @@
                 <label for="customer_address" class="form-label">Alamat Lengkap *</label>
                 <textarea id="customer_address" name="customer_address" rows="3" 
                           class="form-textarea" required 
-                          placeholder="Masukkan alamat lengkap untuk pickup/delivery">{{ old('customer_address') }}</textarea>
-                <p class="help-text">Alamat untuk pickup dan delivery sepatu</p>
+                          placeholder="Masukkan alamat lengkap untuk antar jemput">{{ old('customer_address') }}</textarea>
+                <p class="help-text">Alamat untuk antar jemput sepatu</p>
             </div>
         </div>
 
@@ -322,15 +322,15 @@
 
         <!-- Booking Details -->
         <div class="form-section">
-            <h2>Detail Booking</h2>
+            <h2>Detail Pemesanan</h2>
             
             <div class="form-row">
                 <div class="form-group">
-                    <label for="booking_date" class="form-label">Tanggal Booking *</label>
+                    <label for="booking_date" class="form-label">Tanggal Pemesanan *</label>
                     <input type="date" id="booking_date" name="booking_date" 
                            value="{{ old('booking_date', date('Y-m-d', strtotime('+1 day'))) }}" 
                            min="{{ date('Y-m-d') }}" class="form-input" required>
-                    <p class="help-text">Minimal booking H+1</p>
+                    <p class="help-text">Minimal pemesanan H+1</p>
                 </div>
                 
                 <div class="form-group">
@@ -465,7 +465,7 @@
                         <ul style="color: var(--text-color); font-size: 0.8rem; margin: 0; padding-left: 1.5rem;">
                             <li>Buka aplikasi mobile banking atau e-wallet Anda</li>
                             <li>Pilih menu "Scan QR" atau "QRIS"</li>
-                            <li>Scan QR code yang akan diberikan setelah booking</li>
+                            <li>Scan QR code yang akan diberikan setelah pemesanan</li>
                             <li>Konfirmasi pembayaran sesuai nominal yang tertera</li>
                             <li>Simpan bukti pembayaran untuk konfirmasi</li>
                         </ul>
@@ -484,7 +484,7 @@
         <!-- Submit Button -->
         <div style="display: flex; gap: 1rem; flex-direction: column;">
             <button type="submit" class="btn-submit">
-                <i class="bx bx-check"></i> Buat Booking
+                <i class="bx bx-check"></i> Buat Pemesanan
             </button>
             <a href="{{ route('booking.index') }}" class="btn-cancel">
                 <i class="bx bx-arrow-back"></i> Batal
@@ -570,7 +570,7 @@ function toggleEditMode() {
         } else {
             field.setAttribute('readonly', true);
             field.classList.add('pre-filled');
-            button.innerHTML = '<i class="bx bx-edit"></i> Edit Data';
+            button.innerHTML = '<i class="bx bx-edit"></i> Ubah Data';
         }
     });
 }
