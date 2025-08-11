@@ -441,7 +441,7 @@
             <div style="background: #fef3c7; border: 1px solid #f59e0b; border-radius: 0.5rem; padding: 1rem; margin-top: 1rem;">
                 <p style="color: #92400e; font-size: 0.9rem; margin: 0; text-align: center;">
                     <i class="bx bx-time" style="margin-right: 0.5rem;"></i>
-                    QR Code ini berlaku untuk pembayaran booking ID #{{ $booking->id }}
+                    QR Code ini berlaku untuk pembayaran pemesanan ID #{{ $booking->id }}
                 </p>
             </div>
         </div>
@@ -633,7 +633,7 @@
                 @if($booking->payment_method !== 'cash')
                     Upload bukti pembayaran untuk mempercepat konfirmasi
                 @else
-                    Kami akan menghubungi Anda dalam 1-2 jam untuk konfirmasi booking
+                    Kami akan menghubungi Anda dalam 1-2 jam untuk konfirmasi pemesanan
                 @endif
             </span>
         </div>
@@ -654,13 +654,13 @@
     <!-- Action Buttons -->
     <div class="button-grid">
         <a href="{{ route('booking.show', $booking->id) }}" class="btn-primary">
-            Lihat Detail Booking
+            Lihat Detail Pemesanan
         </a>
         <a href="{{ route('booking.track') }}" class="btn-secondary">
-            Lacak Status Booking
+            Lacak Status Pemesanan
         </a>
         <a href="{{ route('booking.create') }}" class="btn-outline">
-            Booking Lagi
+            Pemesanan Lagi
         </a>
     </div>
 
@@ -671,7 +671,7 @@
             Konfirmasi WhatsApp Otomatis
         </h3>
         <p style="margin-bottom: 1.5rem; opacity: 0.9;">
-            Kami akan mengirimkan konfirmasi booking ke WhatsApp Anda dalam beberapa menit
+            Kami akan mengirimkan konfirmasi pemesanan ke WhatsApp Anda dalam beberapa menit
         </p>
         <a href="https://wa.me/6281543425338?text=Halo,%20saya%20baru%20saja%20membuat%20booking%20dengan%20ID%20%23{{ $booking->id }}%20untuk%20layanan%20{{ urlencode($booking->service->name) }}.%20Mohon%20konfirmasinya.%20Terima%20kasih!" 
            target="_blank" 

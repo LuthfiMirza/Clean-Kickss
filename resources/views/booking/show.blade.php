@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Detail Booking #' . $booking->id)
+@section('title', 'Detail Pemesanan #' . $booking->id)
 
 @push('styles')
 <link rel="stylesheet" href="{{ asset('assets/css/booking.css') }}">
@@ -11,8 +11,8 @@
     <div class="booking-detail__container">
         <!-- Header -->
         <div class="booking-detail__header">
-            <h1 class="section-title">Detail Booking #{{ $booking->id }}</h1>
-            <p class="booking-detail__subtitle">Informasi lengkap booking cuci sepatu</p>
+            <h1 class="section-title">Detail Pemesanan #{{ $booking->id }}</h1>
+            <p class="booking-detail__subtitle">Informasi lengkap pemesanan cuci sepatu</p>
         </div>
 
         <div class="booking-detail__grid">
@@ -20,7 +20,7 @@
             <div class="booking-detail__main">
                 <!-- Status Card -->
                 <div class="booking-detail__card">
-                    <h2 class="booking-detail__card-title">Status Booking</h2>
+                    <h2 class="booking-detail__card-title">Status Pemesanan</h2>
                     
                     @php
                         $statusClasses = [
@@ -109,11 +109,11 @@
 
                 <!-- Booking Details -->
                 <div class="booking-detail__card">
-                    <h2 class="booking-detail__card-title">Detail Booking</h2>
+                    <h2 class="booking-detail__card-title">Detail Pemesanan</h2>
                     
                     <div class="booking-detail__details-grid">
                         <div class="booking-detail__detail-item">
-                            <p class="booking-detail__detail-label">Tanggal Booking</p>
+                            <p class="booking-detail__detail-label">Tanggal Pemesanan</p>
                             <p class="booking-detail__detail-value">{{ \Carbon\Carbon::parse($booking->booking_date)->format('d F Y') }}</p>
                         </div>
                         <div class="booking-detail__detail-item">
@@ -234,10 +234,10 @@
         <!-- Action Buttons -->
         <div class="booking-detail__actions">
             <a href="{{ route('booking.track') }}" class="button booking-detail__button--primary">
-                Lacak Booking Lain
+                Lacak Pemesanan Lain
             </a>
             <a href="{{ route('booking.create') }}" class="button booking-detail__button--success">
-                Booking Baru
+                Pemesanan Baru
             </a>
             <a href="{{ route('home') }}" class="button booking-detail__button--secondary">
                 Kembali ke Beranda

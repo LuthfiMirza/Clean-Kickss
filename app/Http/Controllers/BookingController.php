@@ -88,7 +88,7 @@ class BookingController extends Controller
             DB::commit();
 
             return redirect()->route('booking.success', $booking->id)
-                ->with('success', 'Booking berhasil dibuat! Kami akan menghubungi Anda untuk konfirmasi.');
+                ->with('success', 'Pemesanan berhasil dibuat! Kami akan menghubungi Anda untuk konfirmasi.');
 
         } catch (\Exception $e) {
             DB::rollback();
