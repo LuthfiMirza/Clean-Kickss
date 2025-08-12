@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Hasil Pelacakan Booking')
+@section('title', 'Hasil Pelacakan Pemesanan')
 
 @push('styles')
 <link rel="stylesheet" href="{{ asset('assets/css/booking.css') }}">
@@ -10,8 +10,8 @@
 <section class="track-result section bd-container">
     <div class="track-result__container">
         <div class="track-result__header">
-            <h1 class="section-title">Hasil Pelacakan Booking</h1>
-            <p class="track-result__subtitle">Ditemukan {{ $bookings->count() }} booking</p>
+            <h1 class="section-title">Hasil Pelacakan pemesanan</h1>
+            <p class="track-result__subtitle">Ditemukan {{ $bookings->count() }} pemesanan</p>
         </div>
 
         @if($bookings->count() > 0)
@@ -20,7 +20,7 @@
                 <div class="track-result__card">
                     <div class="track-result__card-header">
                         <div class="track-result__booking-info">
-                            <h3 class="track-result__booking-title">Booking #{{ $booking->id }}</h3>
+                            <h3 class="track-result__booking-title">pemesanan #{{ $booking->id }}</h3>
                             <p class="track-result__service-name">{{ $booking->service->name }}</p>
                         </div>
                         <div class="track-result__status-info">
@@ -55,11 +55,11 @@
 
                     <div class="track-result__details">
                         <div class="track-result__detail-item">
-                            <p class="track-result__detail-label">Tanggal Booking</p>
+                            <p class="track-result__detail-label">Tanggal pemesanan</p>
                             <p class="track-result__detail-value">{{ \Carbon\Carbon::parse($booking->booking_date)->format('d F Y') }}</p>
                         </div>
                         <div class="track-result__detail-item">
-                            <p class="track-result__detail-label">Waktu Pickup</p>
+                            <p class="track-result__detail-label">Waktu Diambil</p>
                             <p class="track-result__detail-value">{{ \Carbon\Carbon::parse($booking->pickup_time)->format('H:i') }}</p>
                         </div>
                         <div class="track-result__detail-item">
@@ -151,14 +151,14 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                     </svg>
                 </div>
-                <h3 class="track-result__empty-title">Tidak Ada Booking Ditemukan</h3>
-                <p class="track-result__empty-text">Tidak ada booking yang ditemukan dengan nomor telepon tersebut.</p>
+                <h3 class="track-result__empty-title">Tidak Ada pemesanan Ditemukan</h3>
+                <p class="track-result__empty-text">Tidak ada pemesanan yang ditemukan dengan nomor telepon tersebut.</p>
                 <div class="track-result__empty-actions">
                     <a href="{{ route('booking.track') }}" class="button track-result__button--primary">
                         Coba Lagi
                     </a>
                     <a href="{{ route('booking.create') }}" class="button track-result__button--success">
-                        Buat Booking Baru
+                        Buat pemesanan Baru
                     </a>
                 </div>
             </div>
@@ -171,7 +171,7 @@
                     Lacak Lagi
                 </a>
                 <a href="{{ route('booking.create') }}" class="button track-result__button--success">
-                    Booking Baru
+                pemesanan Baru
                 </a>
                 <a href="{{ route('home') }}" class="button track-result__button--primary">
                     Kembali ke Beranda
